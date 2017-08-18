@@ -8,50 +8,43 @@ class SqlResult extends Component {
       error: '',
       update: ''
     }
+    this.getQuery=this.getQuery.bind(this);
   }
-  componentWillMount(){
-    console.log('componentWillMount()'+this.props.query)
-    if (this.props.query) {
-
-      let data = { "query": this.props.query, "dbname": "testdb" }
-      httpUtil.post(`http://localhost:4553/api/queries`, data).then(
-        response => {
-          
-          if (response.data.reply.hasOwnProperty('rows'))
-            this.setState({ result: response.data, error: '', update: '' });
-          else
-            this.setState({ result: [], error: '', update: response.data.reply });
-        }
-      )
-        .catch(err => {
-          console.log('err her', err);
-          if (err.response)
-            this.setState({ result: [], update: '', error: err.response.data.error.message });
-
-        })
-    }
+  componentWillMount() {
+    console.log('componentWillMount()' + this.props.query)
+    this.getQuery(this.props.query);
   }
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps()'+nextProps.query)
-    if (this.props.query) {
+    console.log('componentWillReceiveProps()' + nextProps.query)
+    this.getQuery(nextProps.query);
+    
+  }
+  getQuery(query){
+    if (query) {
+      
+            let data = { "query":query, "dbname": "testdb" }
+            httpUtil.post(`http://localhost:4553/api/queries`, data).then(
+              response => {
+      
+                if (response.data.reply.hasOwnProperty('rows'))
+                  this.setState({ result: response.data, error: '', update: '' });
+                else
+                  this.setState({ result: [], error: '', update: response.data.reply });
+              }
+            )
+              .catch(err => {
+                console.log('err her', err);
+                if (err.response){
+                  // if(typeof(err.response.data.error.message)==='errorObject')
+                    this.setState({ result: [], update: '', error:'operation error'+typeof(err.response.data.error.message ) });
+                  // else
+                  //   this.setState({ result: [], update: '', error:err.response.data.error.message  });
+                }
 
-      let data = { "query": nextProps.query, "dbname": "testdb" }
-      httpUtil.post(`http://localhost:4553/api/queries`, data).then(
-        response => {
-          
-          if (response.data.reply.hasOwnProperty('rows'))
-            this.setState({ result: response.data, error: '', update: '' });
-          else
-            this.setState({ result: [], error: '', update: response.data.reply });
-        }
-      )
-        .catch(err => {
-          console.log('err her', err);
-          if (err.response)
-            this.setState({ result: [], update: '', error: err.response.data.error.message });
-
-        })
-    }
+                  
+      
+              })
+          }
   }
   render() {
     return (

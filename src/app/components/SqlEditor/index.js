@@ -52,9 +52,9 @@ class SqlEditor extends Component {
             this.state.brokenQueries.map((q, i) => {
               console.log('index js'+q);
               return (
-                <div>
+                <div key={i}>
                   Result:{i+1}
-                <SqlResult query={q.trim()} key={i} />
+                <SqlResult query={q.trim()} key={i+'q2'} />
                 </div>
                 
               )
