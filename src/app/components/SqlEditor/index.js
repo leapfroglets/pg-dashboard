@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import SqlResult from './SqlResult'
+import SqlResult from './SqlResult';
+import './style.css'
 // import * as httpUtil from '../../httpUtil';
 class SqlEditor extends Component {
   constructor() {
@@ -37,9 +38,9 @@ class SqlEditor extends Component {
   render() {
     return (
       <div>
-        <div className='input'>
+        <div className=''>
           <div>
-            <textarea rows='15' cols='70' id='textInput' onSelect={e => this.showSelection(e)} />
+            <textarea id='textInput' onSelect={e => this.showSelection(e)} />
           </div>
           <div>
             <input type='button' value='execute'
@@ -47,13 +48,14 @@ class SqlEditor extends Component {
           </div>
 
         </div>
-        <div className='output' id='output'>
+        <div className='' id='output'>
+          <div className='x_panel no-border'>
           {
             this.state.brokenQueries.map((q, i) => {
               console.log('index js'+q);
               return (
                 <div key={i}>
-                  Result:{i+1}
+                  <div><h2>Result:{i+1}</h2></div>
                 <SqlResult query={q.trim()} key={i+'q2'} />
                 </div>
                 
@@ -61,6 +63,8 @@ class SqlEditor extends Component {
             }
             )
           }
+          </div>
+          
         </div>
       </div>
     )

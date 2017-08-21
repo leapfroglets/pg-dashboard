@@ -8,7 +8,7 @@ class SqlResult extends Component {
       error: '',
       update: ''
     }
-    this.getQuery=this.getQuery.bind(this);
+    this.getQuery = this.getQuery.bind(this);
   }
   componentWillMount() {
     console.log('componentWillMount()' + this.props.query)
@@ -17,45 +17,43 @@ class SqlResult extends Component {
   componentWillReceiveProps(nextProps) {
     console.log('componentWillReceiveProps()' + nextProps.query)
     this.getQuery(nextProps.query);
-    
-  }
-  getQuery(query){
-    if (query) {
-      
-            let data = { "query":query, "dbname": "testdb" }
-            httpUtil.post(`http://localhost:4553/api/queries`, data).then(
-              response => {
-      
-                if (response.data.reply.hasOwnProperty('rows'))
-                  this.setState({ result: response.data, error: '', update: '' });
-                else
-                  this.setState({ result: [], error: '', update: response.data.reply });
-              }
-            )
-              .catch(err => {
-                console.log('err her', err);
-                if (err.response){
-                  // if(typeof(err.response.data.error.message)==='errorObject')
-                    this.setState({ result: [], update: '', error:'operation error'+typeof(err.response.data.error.message ) });
-                  // else
-                  //   this.setState({ result: [], update: '', error:err.response.data.error.message  });
-                }
 
-                  
-      
-              })
+  }
+  getQuery(query) {
+    if (query) {
+
+      let data = { "query": query, "dbname": "testdb" }
+      httpUtil.post(`http://localhost:4553/api/queries`, data).then(
+        response => {
+
+          if (response.data.reply.hasOwnProperty('rows'))
+            this.setState({ result: response.data, error: '', update: '' });
+          else
+            this.setState({ result: [], error: '', update: response.data.reply });
+        }
+      )
+        .catch(err => {
+          console.log('err her', err);
+          if (err.response) {
+            
+              this.setState({ result: [], update: '', error:'error in operation.'+err.response.data.error.message.toString()  });
           }
+
+
+
+        })
+    }
   }
   render() {
     return (
-      <div>
+      <div className='x_content'>
         {this.state.error}
         {this.state.update}
         {
           this.state.result !== undefined
           &&
-          <table>
-            <tbody>
+          <table className="table table-striped">
+            <thead>
               <tr>
                 {
                   this.state.result.reply === undefined ? '' :
@@ -64,6 +62,9 @@ class SqlResult extends Component {
                     })
                 }
               </tr>
+            </thead>
+            <tbody>
+
               {
                 this.state.result.reply === undefined ? '' :
                   this.state.result.reply.rows.map((row, i) => {

@@ -1,0 +1,10 @@
+.no-border{
+  border:none;
+}
+#textInput{
+  width:100%;
+  height:200px;
+}
+.x-panel{
+  width:75%;
+}
