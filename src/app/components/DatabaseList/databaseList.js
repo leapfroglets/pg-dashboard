@@ -10,10 +10,14 @@ class DatabaseList extends Component{
     };
   }
   componentWillMount(){
-    httpUtil.get(`http://localhost:4553/api?query=select * FROM pg_database where datistemplate=false and datname!='postgres'`,'postgres').then(response => {
-      // console.log('adk',response.data);
+    let data ={
+      query:"select * FROM pg_database where datistemplate=false and datname!='postgres'",
+      dbname:"postgres"
+    };
+    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
+      console.log(response.data.reply.rows);
       this.setState({
-        dbList:response.data,
+        dbList:response.data.reply.rows,
         isLoaded:true
       });
     });
@@ -22,17 +26,15 @@ class DatabaseList extends Component{
   render(){
     if(this.state.isLoaded===true){
       return(
-      <div>
+      <ul className="nav side-menu">
         {
-          this.state.dbList.rows.map(dbInfo => {
+          this.state.dbList.map(dbInfo => {
             return(
-              <div key ={dbInfo.datname}>
-                <DatabaseItem dbname = {dbInfo.datname}/>
-              </div>
+              <DatabaseItem dbname = {dbInfo.datname} key = {dbInfo.datname}/>
             )
           })
         }
-      </div>
+      </ul>
     );
     }
     else{return null;}
