@@ -7,7 +7,7 @@ import * as errorHandler from './middlewares/errorHandler';
 
 let app = express();
 let PORT=4553;
-dotenv.config();
+//dotenv.config();
 
 app.set('port' , PORT);
 app.use(bodyParser.json());
