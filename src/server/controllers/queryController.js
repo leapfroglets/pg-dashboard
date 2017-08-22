@@ -18,7 +18,7 @@ let dbConfig={
 
 controller.post('/login' , (req , res , next) => {
   
-  dbConfig.database = req.body.dbname || 'template1';
+  dbConfig.database = req.body.dbname || 'postgres';
   dbConfig.user = req.body.user;
   dbConfig.password = req.body.password;
   dbConfig.port = req.body.port || 5432;
