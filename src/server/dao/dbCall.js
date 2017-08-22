@@ -57,6 +57,11 @@ export function queryCall(query , dbConfig){
             reply:ans
           })
         }
+        else if(action == 'drop'){
+          let ans = query.split(' ')[1];
+          ans = `${ans} dropped`;
+          resolve({reply:ans});
+        }
      })
      .catch(err => reject(err.stack.split('\n')[0]));
   })
