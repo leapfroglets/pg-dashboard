@@ -16,8 +16,8 @@ export function queryCall(query , dbConfig){
     conn.connectClient(query , dbConfig)
       .then(reply =>{
         let action = query.split(' ')[0];
-        if(action == 'select'){
-          resolve(reply);
+        if(action == 'select'){          
+          resolve({reply});
         }
         else if(action == 'insert'){
           let ans = reply.rowCount;
@@ -40,7 +40,21 @@ export function queryCall(query , dbConfig){
           ans = `${ans} rows updated`;
           resolve({reply:ans});
         }
-
+        else if(action == 'update'){
+          let ans = query.split(' ')[1];
+          ans = `${ans} updated`;
+          resolve({reply:ans});
+        }
+        else if(action == 'alter'){
+          let ans = query.split(' ')[1];
+          ans = `${ans} altered`;
+          resolve({reply:ans});
+        }
+        else if(action == 'delete'){
+          let ans = reply.rowCount;
+          ans = `${ans} rows deleted`;
+          resolve({reply:ans});
+        }
      })
      .catch(err => reject(err.stack.split('\n')[0]));
   })
