@@ -4,7 +4,7 @@ import NavRouter from './router';
 class NavBar extends Component{
   render(){
     return(
-      <NavRouter/>
+      <NavRouter currDbname ={this.props.currDbname} currTable={this.props.currTable}/>
     );
   }
 }

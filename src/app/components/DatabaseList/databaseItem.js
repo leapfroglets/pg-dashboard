@@ -46,13 +46,15 @@ class DatabaseItem extends Component{
     if(this.state.isLoaded === true){
       let sign = this.state.plusIsNext ? '+':'-';
       return(
-        <li key ={this.props.dbname} >
+        <li key ={this.props.dbname}>
           <button onClick ={() => {this.showTables()}}>{sign}</button> 
-          <a onClick = {() => {this.props.onClick(this.props.dbname,'table1')}}><i className="fa fa-home"></i>{this.props.dbname}</a>
+          <a onClick = {() => {this.props.onClick(this.props.dbname,null)}}><i className="fa fa-home"></i>{this.props.dbname}</a>
           <ul id = {this.props.dbname} className="nav child_menu">
             {this.state.tabList.map(table => {
               return(
-                <li key = {table.table_name}><a href="index.html">{table.table_name}</a></li>
+                <li key = {table.table_name}>
+                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name)}}>{table.table_name}</a>
+                </li>
               );
             })}
           </ul>

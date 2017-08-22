@@ -7,8 +7,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      currDbname:'',
-      currTable:''
+      currDbname:null,
+      currTable:null
     };
     // this.handleClick = this.handleClick.bind(this);
   }
@@ -27,7 +27,9 @@ class App extends Component {
         <div className = "left_container clearfix">
           <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}}/>
         </div>
-        <div className = "right_container clearfix"><NavBar/></div>
+        <div className = "right_container clearfix"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable}/></div>
+
+        <span>{this.state.currDbname } {this.state.currTable}</span>
       </div>
     );
   }
