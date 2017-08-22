@@ -30,7 +30,7 @@ export function queryCall(query , dbConfig){
         else if(action == 'create'){
           
           let ans = query.split(' ')[1];
-          ans = `${reply} created`;          
+          ans = `${ans} created`;          
           resolve({
             reply:ans
           });
@@ -50,9 +50,12 @@ export function queryCall(query , dbConfig){
           ans = `${ans} altered`;
           resolve({reply:ans});
         }
-        else if(action == 'delete'){
+        else if(action == 'delete'){          
           let ans = reply.rowCount;
           ans = `${ans} rows deleted`;
+          resolve({
+            reply:ans
+          })
         }
      })
      .catch(err => reject(err.stack.split('\n')[0]));
