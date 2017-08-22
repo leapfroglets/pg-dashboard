@@ -11,11 +11,6 @@ class DatabaseItem extends Component{
     };
   }
 
-  flagOn(){
-    this.setState({
-      plusIsNext:!this.state.plusIsNext
-    });
-  }
   componentWillMount(){
     console.log("TABLES");
     let data ={
@@ -53,7 +48,7 @@ class DatabaseItem extends Component{
       return(
         <li key ={this.props.dbname} >
           <button onClick ={() => {this.showTables()}}>{sign}</button> 
-          <a><i className="fa fa-home"></i>{this.props.dbname}</a>
+          <a onClick = {() => {this.props.onClick(this.props.dbname,'table1')}}><i className="fa fa-home"></i>{this.props.dbname}</a>
           <ul id = {this.props.dbname} className="nav child_menu">
             {this.state.tabList.map(table => {
               return(
