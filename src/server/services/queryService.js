@@ -1,7 +1,9 @@
-import { queryCall } from '../dao/queryCall';
-import { queryCreate } from '../dao/queryCreate';
+import * as dao from '../dao/dbCall'
 
-export function queryServiceCall(query , database){
-  
-  return queryCall(query , database);
+export function dbConnect(dbConfig){
+  return dao.dbConnect(dbConfig);
+}
+
+export function queryCall(query , dbConfig){
+  return dao.queryCall(query , dbConfig);
 }
