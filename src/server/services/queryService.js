@@ -7,3 +7,7 @@ export function dbConnect(dbConfig){
 export function queryCall(query , dbConfig){
   return dao.queryCall(query , dbConfig);
 }
+
+export function logOut(){
+  return dao.logOut();
+}
