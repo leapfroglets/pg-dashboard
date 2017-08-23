@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
-
+import SidePanel from './components/DatabaseList';
 
 class App extends Component {
   
@@ -9,6 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <SqlEditor />
+        <SidePanel />
       </div>
     );
   }
