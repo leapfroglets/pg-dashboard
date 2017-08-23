@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   handleClick(dbName, table){
-    console.log(dbName,table);
+    // console.log(dbName,table);
     this.setState({
       currDbname:dbName,
       currTable:table

@@ -6,7 +6,6 @@ import Insert from '../Insert';
 import Operations from '../Operations';
 
 const NavRouter = (props) =>{
-  console.log(typeof(props.currTable))
   if(props.currTable!==null){
     return(
       <BrowserRouter>
@@ -18,10 +17,18 @@ const NavRouter = (props) =>{
             <li><Link to = "/operations">Operations</Link></li>
           </ul>
           <Switch>
-            <Route path = "/browse" component = {Browse}/>
-            <Route path = "/sqlEditor" component = {SqlEditor}/>
-            <Route path = "/insert" component = {Insert}/>
-            <Route path = "/operations" component = {Operations}/>
+            <Route path = "/browse" 
+              exact render={() => (<Browse dbname={props.currDbname} table={props.currTable}/>)}
+            />
+            <Route path = "/sqlEditor"
+              exact render={() => (<SqlEditor dbname={props.currDbname} table={props.currTable}/>)}
+            />
+            <Route path = "/insert"
+              exact render={() => (<Insert dbname={props.currDbname} table={props.currTable}/>)}
+            />
+            <Route path = "/operations"
+              exact render={() => (<Operations dbname={props.currDbname} table={props.currTable}/>)}
+            />
           </Switch>
         </div>
       </BrowserRouter>
