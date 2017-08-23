@@ -732,11 +732,7 @@ a:focus {
     background: transparent
 }
 .nav.child_menu {
-<<<<<<< HEAD
-    display: none;
-=======
     display: none
->>>>>>> f8389074a368b5784249f97867a1548dae2e0081
 }
 .nav.child_menu li:hover,
 .nav.child_menu li.active {
