@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
+
 import SidePanel from './components/DatabaseList';
 import NavBar from './components/NavBar';
 
@@ -23,7 +24,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <SqlEditor /> */}
         <div className = "left_container clearfix">
           <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}}/>
         </div>
