@@ -4,6 +4,7 @@ import SqlEditor from './components/SqlEditor';
 import SidePanel from './components/DatabaseList';
 import NavBar from './components/NavBar';
 
+
 class App extends Component {
   constructor(){
     super();
@@ -11,7 +12,6 @@ class App extends Component {
       currDbname:null,
       currTable:null
     };
-    // this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(dbName, table){
@@ -28,7 +28,6 @@ class App extends Component {
           <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}}/>
         </div>
         <div className = "right_container clearfix"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable}/></div>
-
         <span>{this.state.currDbname } {this.state.currTable}</span>
       </div>
     );

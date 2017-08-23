@@ -15,7 +15,6 @@ class DatabaseList extends Component{
       dbname:"postgres"
     };
     httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
-      console.log(response.data.reply.rows);
       this.setState({
         dbList:response.data.reply.rows,
         isLoaded:true
