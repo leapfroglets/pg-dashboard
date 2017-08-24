@@ -5,7 +5,6 @@ import './style.css';
 class SidePanel extends Component{
   render(){
     return(
-      // <div className="col-md-3 left_col">
       <div>
           <div className="left_col scroll-view">
             <div className="navbar nav_title" style={{border: 0}}>

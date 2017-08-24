@@ -3,15 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
 textarea{
   resize: none;
 }
-
 .left_container{
   float:left;
+  width:20%;
 }
 .right_container{
   float:left;
-  width:70%;
+  width:80%;
+  background: white;
 }

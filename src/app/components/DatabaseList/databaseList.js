@@ -14,8 +14,7 @@ class DatabaseList extends Component{
       query:"select * FROM pg_database where datistemplate=false and datname!='postgres'",
       dbname:"postgres"
     };
-    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
-      console.log(response.data.reply.rows);
+    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
       this.setState({
         dbList:response.data.reply.rows,
         isLoaded:true

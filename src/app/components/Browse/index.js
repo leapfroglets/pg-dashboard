@@ -16,8 +16,7 @@ class Browse extends Component{
       query:"select * FROM "+props.table,
       dbname:props.dbname
     };
-    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
-      console.log("response",response.data.reply);
+    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
       this.setState({
         entries:response.data.reply,
         isLoaded:true
@@ -34,10 +33,12 @@ class Browse extends Component{
   }
 
   render(){
-    console.log("browse",this.props.dbname,this.props.table);
     if(this.state.isLoaded === true){
       return(
         <div>
+          <div className = "title_left">
+            <h3>Table: {this.props.table}</h3>
+          </div>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -51,7 +52,6 @@ class Browse extends Component{
               </tr>
             </thead>
             <tbody>
-            
             {
               this.state.entries.rows.map((entry,i) => {
                 return(
@@ -70,9 +70,11 @@ class Browse extends Component{
             </tbody>
           </table>
         </div>
-    );
+      );
     }
-    else{return null;}
+    else{
+      return null;
+    }
   }
 }
 
