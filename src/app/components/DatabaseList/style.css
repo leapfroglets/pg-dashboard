@@ -1,3 +1,12 @@
 .nav>li>a{
   display:inline-block;
 }
+ .logo{
+  width:20%;
+} 
+
+.pg-title{
+  font-weight:bold;
+  color:white;
+  font-size:30px;
+}

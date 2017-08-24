@@ -732,7 +732,7 @@ a:focus {
     background: transparent
 }
 .nav.child_menu {
-    display: none
+    display: none;
 }
 .nav.child_menu li:hover,
 .nav.child_menu li.active {
