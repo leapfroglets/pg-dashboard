@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
-// import DatabaseList from './components/DatabaseList/databaseList';
+import SidePanel from './components/DatabaseList';
 
 class App extends Component {
   
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <SqlEditor />
-        {/* <DatabaseList /> */}
+        <SidePanel />
       </div>
     );
   }
