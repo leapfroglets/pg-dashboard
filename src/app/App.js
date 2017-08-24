@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
-
 import SidePanel from './components/DatabaseList';
 import NavBar from './components/NavBar';
-
 
 class App extends Component {
   constructor(){
@@ -32,7 +30,6 @@ class App extends Component {
       </div>
     );
   }
-  
 }
 
 export default App;
