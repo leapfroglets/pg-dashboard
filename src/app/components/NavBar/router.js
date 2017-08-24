@@ -11,12 +11,15 @@ const NavRouter = (props) =>{
       <BrowserRouter>
         <div>
           <ul className = "nav nav-tabs bar_tabs">
-            <li><Link to = "/browse">Browse</Link></li>
-            <li className ="active"><Link to = "/sqlEditor">Sql Editor</Link></li>
+            <li className ="active"><Link to = "/browse">Browse</Link></li>
+            <li><Link to = "/sqlEditor">Sql Editor</Link></li>
             <li><Link to = "/insert">Insert</Link></li>
             <li><Link to = "/operations">Operations</Link></li>
           </ul>
           <Switch>
+            <Route exact path = "/" 
+              exact render={() => (<Browse dbname={props.currDbname} table={props.currTable}/>)}
+            />
             <Route path = "/browse" 
               exact render={() => (<Browse dbname={props.currDbname} table={props.currTable}/>)}
             />
@@ -39,13 +42,11 @@ const NavRouter = (props) =>{
       <BrowserRouter>
         <div>
           <ul className = "nav nav-tabs bar_tabs">
-            
             <li className ="active"><Link to = "/sqlEditor">Sql Editor</Link></li>
             <li><Link to = "/insert">Insert</Link></li>
             <li><Link to = "/operations">Operations</Link></li>
           </ul>
           <Switch>
-           
             <Route path = "/sqlEditor" component = {SqlEditor}/>
             <Route path = "/insert" component = {Insert}/>
             <Route path = "/operations" component = {Operations}/>
