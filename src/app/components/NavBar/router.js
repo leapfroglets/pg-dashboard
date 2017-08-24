@@ -32,13 +32,11 @@ const NavRouter = (props) =>{
       <BrowserRouter>
         <div>
           <ul className = "nav nav-tabs bar_tabs">
-            
             <li className ="active"><Link to = "/sqlEditor">Sql Editor</Link></li>
             <li><Link to = "/insert">Insert</Link></li>
             <li><Link to = "/operations">Operations</Link></li>
           </ul>
           <Switch>
-           
             <Route path = "/sqlEditor" component = {SqlEditor}/>
             <Route path = "/insert" component = {Insert}/>
             <Route path = "/operations" component = {Operations}/>
@@ -48,6 +46,5 @@ const NavRouter = (props) =>{
     );
   } 
   }
-
 
 export default NavRouter;
