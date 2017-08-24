@@ -12,13 +12,11 @@ class DatabaseItem extends Component{
   }
 
   componentWillMount(){
-    console.log("TABLES");
     let data ={
       query:"select * FROM information_schema.tables WHERE table_schema='public'",
       dbname:this.props.dbname
     };
     httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
-      console.log("items",response.data.reply.rows);
       this.setState({
         tabList:response.data.reply.rows,
         isLoaded:true
@@ -38,9 +36,7 @@ class DatabaseItem extends Component{
       this.setState({
           plusIsNext:true
         })
-      console.log(this.state.tabList);
     }
-    //this.flagOn();
   }
   render(){
     if(this.state.isLoaded === true){
