@@ -3,9 +3,12 @@ import CopyDatabase from './CopyDatabase';
 class DatabaseOperations extends Component {
   render() {
     return (
-      <div className='x_panel'>
+      <div>
+        <CopyDatabase currDbname={this.props.currDbname} />
+        <CopyDatabase currDbname={this.props.currDbname} />
         <CopyDatabase currDbname={this.props.currDbname} />
       </div>
+
     )
   }
 }
