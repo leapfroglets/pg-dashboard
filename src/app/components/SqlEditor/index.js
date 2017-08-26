@@ -21,7 +21,7 @@ class SqlEditor extends Component {
       <div>
         <div className='x_panel'>
           <div>
-            <textarea className='form-control' id='textInput'/>
+            <textarea placeholder='Enter your SQL here' className='form-control' id='textInput'/>
           </div>
           <div className="ln_solid"></div>
           <div>
