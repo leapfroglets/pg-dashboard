@@ -4,38 +4,80 @@ class TableDrop extends Component {
   constructor() {
     super();
     this.state = {
-      textBoxValue: '',
-      update: '',
-      error: ''
+      truncatereply: '',
+      truncateerror: '',
+      dropreply: '',
+      droperror: ''
     };
+    this.truncateTable = this.truncateTable.bind(this);
+    this.dropTable = this.dropTable.bind(this);
   }
-  renameTable() {
-    if (this.state.textBoxValue !== '') {
-      console.log(`alter table ${this.props.currTable} rename to ${this.state.textBoxValue}`);
-      let data = {
-        query: `alter table ${this.props.currTable} rename to ${this.state.textBoxValue}`,
-        "dbname": this.props.currDbname
-      };
-      httpUtil.post(`http://localhost:4553/api/database/queries`, data)
-        .then(response => {
-          this.setState({ textBoxValue: '', reply: response.data.reply, error: '' })
+  truncateTable() {
+    console.log(`truncate table ${this.props.currTable}`);
+    let data = {
+      query: `truncate table ${this.props.currTable}`,
+      "dbname": this.props.currDbname
+    };
+    httpUtil.post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          textBoxValue: '',
+          truncatereply: response.data.reply,
+          truncateerror: '',
+          dropreply: '',
+          droperror: ''
         })
-        .catch(err => {
-          this.setState({ reply: '', error: err.response.data.error.message })
-        });
-    }
-
+      })
+      .catch(err => {
+        this.setState({
+          truncatereply: '',
+          truncateerror: err.response.data.error.message,
+          dropreply: '',
+          droperror: ''
+        })
+      });
+  }
+  dropTable() {
+    console.log(`drop table ${this.props.currTable}`);
+    let data = {
+      query: `drop table ${this.props.currTable}`,
+      "dbname": this.props.currDbname
+    };
+    httpUtil.post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          textBoxValue: '',
+          truncatereply: '',
+          truncateerror: '',
+          dropreply: response.data.reply,
+          droperror: ''
+        })
+      })
+      .catch(err => {
+        this.setState({
+          truncatereply: '',
+          truncateerror: '',
+          dropreply: '',
+          droperror: err.response.data.error.message
+        })
+      });
   }
   render() {
     return (
       <div className='col-md-4'>
         <div className='x_panel'>
-          <div className='x_title'>Drop Data/ Table</div>
-          <div>         
-            {this.state.reply}
-            {this.state.error}
-          </div>          
-          />
+          <div className='x_title'>Drop Data/ Table {this.props.currTable}</div>
+          <div>
+            <input type='button' className='btn btn-round btn-default'
+              value='Drop data (Truncate)' onClick={() => this.truncateTable()} />
+            {this.state.truncatereply}
+            {this.state.truncateerror}
+            <div className='ln_solid'></div>
+            <input type='button' className='btn btn-round btn-default'
+              value='Drop Table' onClick={() => this.dropTable()} />
+            {this.state.dropreply}
+            {this.state.droperror}
+          </div>
         </div>
       </div>
     );

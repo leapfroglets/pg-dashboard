@@ -5,7 +5,7 @@ class TableCopy extends Component {
     super();
     this.state = {
       textBoxValue: '',
-      update: '',
+      reply: '',
       error: ''
     };
   }

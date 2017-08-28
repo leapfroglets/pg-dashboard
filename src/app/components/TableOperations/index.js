@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import TableRename from './TableRename';
+import TableCopy from './TableCopy';
+import TableDrop from './TableDrop';
 class TableOperations extends Component{
   render(){
     return(
       <div>
-        {this.props.currDbname}   {this.props.currTable}
-        <TableRename currDbname={this.props.currDbname} currTable={this.props.currTable}/>
+        <TableRename currDbname={this.props.currDbname} currTable={this.props.currTable} />
+        <TableCopy currDbname={this.props.currDbname} currTable={this.props.currTable} />
+        <TableDrop currDbname={this.props.currDbname} currTable={this.props.currTable} />
       </div>
     );
   }

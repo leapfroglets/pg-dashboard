@@ -5,7 +5,7 @@ class TableRename extends Component {
     super();
     this.state = {
       textBoxValue: '',
-      update: '',
+      reply: '',
       error: ''
     };
   }
