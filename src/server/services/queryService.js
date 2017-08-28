@@ -41,7 +41,7 @@ export function queryCall(query , dbConfig){
         else if(action == 'insert'){
           let ans = reply.rowCount;
           ans = `${ans} rows inserted`;
-          console.log(ans);
+          
           resolve({
             reply:ans
           });
@@ -79,6 +79,11 @@ export function queryCall(query , dbConfig){
         else if(action == 'drop'){
           let ans = query.split(' ')[1];
           ans = `${ans} dropped`;
+          resolve({reply:ans});
+        }
+        else if(action == 'truncate'){
+          let ans = query.split(' ')[1];
+          ans = `${ans} truncated`;
           resolve({reply:ans});
         }
     })

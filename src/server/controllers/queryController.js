@@ -33,9 +33,9 @@ controller.post('/login' , (req , res , next) => {
 })
 
 controller.post('/queries' , (req , res , next) => {
-  dbConfig.database = req.body.dbname || dbConfig.database;console.log(dbConfig.database , req.body.dbname);
+  dbConfig.database = req.body.dbname || dbConfig.database;
   let query = req.body.query;
-  query = query.replace(/\s+/g, ' ').trim();console.log(query);
+  query = query.replace(/\s+/g, ' ').trim();
   services.queryCall(query , dbConfig)
   .then(reply => res.json(reply))
   .catch(err => next(err));

@@ -18,7 +18,7 @@ export function queryCall(query , dbConfig , database){
       .then(reply =>{
         resolve({reply});
      })
-     .catch(err => {console.log(err);reject(err)});
+     .catch(err => {reject(err)});
   })
   
 }
