@@ -7,3 +7,11 @@ body {
 textarea{
   resize: none;
 }
+
+.left_container{
+  float:left;
+}
+.right_container{
+  float:left;
+  width:70%;
+}
