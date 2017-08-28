@@ -30,7 +30,7 @@ class DatabaseList extends Component{
           this.state.dbList.map(dbInfo => {
             return(
               <DatabaseItem dbname = {dbInfo.datname} key = {dbInfo.datname}
-              onClick = {(dbname,table) => {this.props.onClick(dbname,table)}}/>
+              onClick = {(dbname,table) => {this.props.onClick(dbname,table)}} history={this.props.history}/>
             )
           })
         }

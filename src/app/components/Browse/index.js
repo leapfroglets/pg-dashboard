@@ -10,7 +10,6 @@ class Browse extends Component{
     };
     this.retrieveResponse = this.retrieveResponse.bind(this);
   }
-
   retrieveResponse(props){
     let data ={
       query:"select * FROM "+props.table,
@@ -25,11 +24,25 @@ class Browse extends Component{
   }
   
   componentWillMount(){
-    this.retrieveResponse(this.props);
+    // console.log('browse',this.props);
+    console.log('will receive');
+    this.setState({
+      entries:[]
+    })
+    if(this.props.table && this.props.dbname){
+      this.retrieveResponse(this.props);
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    this.retrieveResponse(nextProps);
+    this.setState({
+      entries:[],
+      isLoaded:false
+    })
+    if(nextProps.table && nextProps.dbname){
+      console.log('will receive');
+      this.retrieveResponse(nextProps);
+    }
   }
 
   render(){

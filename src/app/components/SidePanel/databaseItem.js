@@ -38,6 +38,10 @@ class DatabaseItem extends Component{
         })
     }
   }
+  redirect(){
+    // console.log("dbitem",this.props.history);
+    this.props.history.push('/browse');
+  }
   render(){
     if(this.state.isLoaded === true){
       let sign = this.state.plusIsNext ? '+':'-';
@@ -49,7 +53,7 @@ class DatabaseItem extends Component{
             {this.state.tabList.map(table => {
               return(
                 <li key = {table.table_name}>
-                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name)}}>{table.table_name}</a>
+                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name);this.redirect()}}>{table.table_name}</a>
                 </li>
               );
             })}

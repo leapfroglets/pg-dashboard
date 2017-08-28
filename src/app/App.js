@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
-import SidePanel from './components/DatabaseList';
-import NavBar from './components/NavBar';
-import * as httpUtil from './httpUtil'
+import SidePanel from './components/SidePanel';
+import NavBar from './navBar';
+import * as httpUtil from './httpUtil';
 
 class App extends Component {
   constructor(){
@@ -27,14 +27,17 @@ class App extends Component {
       password: "nirmala"
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
+    console.log("will mount");
   }
+  
   render() {
+    console.log(this.state.currDbname,"  ",this.state.currTable);
     return (
       <div className="App">
-        <div className = "left_container clearfix">
-          <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}}/>
+        <div className = "col-md-3 left-container">
+          <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}} history={this.props.history}/>
         </div>
-        <div className = "right_container clearfix"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable}/></div>
+             <div className = "col-md-9 right-container"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable} match={this.props.match}/></div>     
       </div>
     );
   }
