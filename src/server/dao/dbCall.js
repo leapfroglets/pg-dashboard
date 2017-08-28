@@ -16,7 +16,7 @@ export function queryCall(query , dbConfig , database){
     query = query.toLowerCase();
     conn.connectClient(query , dbConfig, database)
       .then(reply =>{
-        resolve({reply});
+        resolve(reply);
      })
      .catch(err => {reject(err)});
   })
