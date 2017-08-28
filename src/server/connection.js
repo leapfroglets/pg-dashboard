@@ -13,32 +13,47 @@ export function firstConnect(dbConfig){
         return reject(err.stack.split('\n')[0]);
       }
       clients.push(client);
-      resolve('logged in successfully');
+    
+      resolve({reply:'logged in successfully'});
     });
     
   })
 
 }
 
-export function connectClient(query ,dbConfig ){
+export function connectClient(query ,dbConfig,database ){
 
   return new Promise((resolve , reject) => {
+    if(database){
+      if(database == currentDb.connectionParameters.database){
+        
+        let err ='Database currently in use';
+        return reject(err);
+      }
+      clients.forEach((client) => {
+        if(client.connectionParameters.database == database){
+        
+          client.end();
+          client.connectionParameters.database=' ';
+        }
+      })
+    }
+
     if(clients.length>0){
-      console.log(clients.length);
+      
     let flag=0;
     clients.forEach((client) => {
       
       if(dbConfig.database){         
         if(client.connectionParameters.database == dbConfig.database){
           currentDb = client;
-          flag=1;
-          client.query(query , (err , rows)=>{
+          flag=1;          
+            client.query(query , (err , rows)=>{
             if(err){
-              return reject (err);
+              return reject (err.stack.split('\n')[0]);
             }
             resolve(rows);
-          });
-          
+          });             
         }
       }      
     })
@@ -54,7 +69,7 @@ export function connectClient(query ,dbConfig ){
                 client.query(query , (err , rows)=>{
             
             if(err){
-              return reject (err);
+              return reject (err.stack.split('\n')[0]);
             }
             resolve(rows);
           });
@@ -71,7 +86,7 @@ export function connectClient(query ,dbConfig ){
           client.query(query , (err , rows)=>{
             
             if(err){
-              return reject (err);
+              return reject (err.stack.split('\n')[0]);
             }
             resolve(rows);
           });
@@ -90,10 +105,16 @@ export function connectClient(query ,dbConfig ){
 
 export function disConnect(){
   return new Promise((resolve, reject) => {
-    clients.forEach((client)=> {
-      client.end();
-    })
-    clients.length = 0;
-    resolve('logged out ');
+    if(clients.length == 0){
+      reject('Please login first');  
+    }
+    else{
+      clients.forEach((client)=> {
+        client.end();
+      })
+      clients.length = 0;
+      resolve({reply:'logged out '});
+    }
+    
   })
 }

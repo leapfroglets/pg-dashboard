@@ -11,59 +11,14 @@ export function dbConnect(dbConfig){
   
 }
 
-export function queryCall(query , dbConfig){
+export function queryCall(query , dbConfig , database){
   return new Promise((resolve , reject) => {
-    conn.connectClient(query , dbConfig)
+    query = query.toLowerCase();
+    conn.connectClient(query , dbConfig, database)
       .then(reply =>{
-        let action = query.split(' ')[0];
-        if(action == 'select'){          
-          resolve({reply});
-        }
-        else if(action == 'insert'){
-          let ans = reply.rowCount;
-          ans = `${ans} rows inserted`;
-          console.log(ans);
-          resolve({
-            reply:ans
-          });
-        }
-        else if(action == 'create'){
-          
-          let ans = query.split(' ')[1];
-          ans = `${ans} created`;          
-          resolve({
-            reply:ans
-          });
-        }
-        else if(action == 'update'){
-          let ans =reply.rowCount;
-          ans = `${ans} rows updated`;
-          resolve({reply:ans});
-        }
-        else if(action == 'update'){
-          let ans = query.split(' ')[1];
-          ans = `${ans} updated`;
-          resolve({reply:ans});
-        }
-        else if(action == 'alter'){
-          let ans = query.split(' ')[1];
-          ans = `${ans} altered`;
-          resolve({reply:ans});
-        }
-        else if(action == 'delete'){          
-          let ans = reply.rowCount;
-          ans = `${ans} rows deleted`;
-          resolve({
-            reply:ans
-          })
-        }
-        else if(action == 'drop'){
-          let ans = query.split(' ')[1];
-          ans = `${ans} dropped`;
-          resolve({reply:ans});
-        }
+        resolve({reply});
      })
-     .catch(err => reject(err.stack.split('\n')[0]));
+     .catch(err => {console.log(err);reject(err)});
   })
   
 }
@@ -71,6 +26,7 @@ export function queryCall(query , dbConfig){
 export function logOut(){
   return new Promise((resolve , reject) => {
     conn.disConnect()
-    .then(reply => resolve(reply));
+    .then(reply => resolve(reply))
+    .catch(err => reject(err));
   })
 }

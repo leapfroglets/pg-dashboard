@@ -1,8 +1,8 @@
 export function error(err, request, response, next){
-  response.status(500).json({
+  response.status(err.status).json({
     error:{
       status:'error',
-      message: err
+      message: err.message
     }
   });
 }
