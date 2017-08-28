@@ -24,6 +24,9 @@ export function firstConnect(dbConfig){
 export function connectClient(query ,dbConfig,database ){
 
   return new Promise((resolve , reject) => {
+    
+
+    if(clients.length>0){
     if(database){
       if(database == currentDb.connectionParameters.database){
         
@@ -37,10 +40,7 @@ export function connectClient(query ,dbConfig,database ){
           client.connectionParameters.database=' ';
         }
       })
-    }
-
-    if(clients.length>0){
-      
+    }  
     let flag=0;
     clients.forEach((client) => {
       

@@ -19,10 +19,10 @@ export function dbConnect(dbConfig){
 export function queryCall(query , dbConfig){
   return new Promise((resolve , reject) => {
     let action = query.split(' ')[0];
-    if(query.split(' ')[0]=='drop' && query.split(' ')[1] == 'database'){
+    if((query.split(' ')[0]=='drop' || query.split(' ')[0]== 'alter') && query.split(' ')[1] == 'database'){
       dao.queryCall(query , dbConfig, query.split(' ')[2] )
       .then(reply=>{
-        resolve({reply:'database dropped'});
+        resolve({reply:`database ${action}ed`});
       })
       .catch(err=> {
         let error={
@@ -87,7 +87,7 @@ export function queryCall(query , dbConfig){
           resolve({reply:ans});
         }
     })
-    .catch(err => { 
+    .catch(err => { console.log(err);
       let errorElement = err.split(' ')[1];
       let error;
       if(errorElement == 'syntax'){
