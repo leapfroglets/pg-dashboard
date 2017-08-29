@@ -24,8 +24,6 @@ class Browse extends Component{
   }
   
   componentWillMount(){
-    // console.log('browse',this.props);
-    console.log('will receive');
     this.setState({
       entries:[]
     })

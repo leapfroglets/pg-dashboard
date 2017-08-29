@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as httpUtil from '../../httpUtil';
+import CreateDatabase from '../CreateDatabase';
 
 class Databases extends Component{
   constructor(){
@@ -21,6 +22,7 @@ class Databases extends Component{
       });
     });
   }
+
   render(){
     return(
       <div>
@@ -34,7 +36,7 @@ class Databases extends Component{
           {
             this.state.dbList.map(db => {
               return(
-                <tr>
+                <tr key={db.datname}>
                   <td>{db.datname}</td>
                 </tr>
               );
@@ -42,6 +44,7 @@ class Databases extends Component{
           }
           </tbody>
         </table>
+        <CreateDatabase/>
       </div>
     );
   }

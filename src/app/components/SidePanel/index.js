@@ -6,7 +6,6 @@ import {NavLink} from 'react-router-dom';
 class SidePanel extends Component{
   render(){
     return(
-      <div>
           <div className="left_col scroll-view">
             <div className="navbar nav_title" style={{border: 0}} onClick={() => {this.props.onClick(null,null)}}>
               <NavLink to='/databases'><img src="images/logo2.png" className="logo"/><span className = "pg-title">PG admin</span></NavLink>
@@ -24,7 +23,6 @@ class SidePanel extends Component{
               
             </div>
           </div>
-      </div>
     );
   }
 }

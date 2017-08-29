@@ -5,9 +5,6 @@ import Browse from './components/Browse';
 import Insert from './components/Insert';
 import Operations from './components/Operations';
 import App from './App';
-import createBrowserHistory from 'history/createBrowserHistory'
-
-const history = createBrowserHistory()
 
 class Router extends Component{
   constructor(){

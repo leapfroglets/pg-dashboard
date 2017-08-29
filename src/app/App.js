@@ -27,11 +27,9 @@ class App extends Component {
       password: "nirmala"
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
-    console.log("will mount");
   }
   
   render() {
-    console.log(this.state.currDbname,"  ",this.state.currTable);
     return (
       <div className="App">
         <div className = "col-md-3 left-container">

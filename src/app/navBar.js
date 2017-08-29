@@ -20,7 +20,7 @@ class NavBar extends Component{
         <Route path = {`${this.props.match.url}browse`}
           render={() => (<Browse dbname={this.props.currDbname} table={this.props.currTable}/>)}/>
         <Route path = {`${this.props.match.url}sqleditor`} component = {SqlEditor}/>
-        <Route path = {`${this.props.match.url}insert`} component = {Insert}/>
+        <Route path = {`${this.props.match.url}insert`} render={() => (<Insert dbname={this.props.currDbname} table={this.props.currTable}/>)}/>
         <Route path = {`${this.props.match.url}operations`} component = {Operations}/>  
         <Route path = {`${this.props.match.url}databases`} component = {Databases}/> 
         </div>
