@@ -87,7 +87,7 @@ export function queryCall(query , dbConfig){
           resolve({reply:ans});
         }
     })
-    .catch(err => { console.log(err);
+    .catch(err => { 
       let errorElement = err.split(' ')[1];
       let error;
       if(errorElement == 'syntax'){
