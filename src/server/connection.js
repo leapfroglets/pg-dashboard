@@ -32,8 +32,7 @@ export function connectClient(query ,dbConfig,database ){
         if(dbConfig.database){        
           if(client.connectionParameters.database == dbConfig.database){
             currentDb = client;
-            flag=1;          
-            
+            flag=1;                      
           }
         }      
       })
@@ -44,12 +43,11 @@ export function connectClient(query ,dbConfig,database ){
         currentDb = client1;
         client1.connect((err , client , done) => {
           if(err){
-            return reject(err.stack.split('\n')[0]);
+            let error = err.stack.split('\n')[0];
+            return reject(error);
           }
           clients.push(client);
-          currentDb = client;           
-     
-       
+          currentDb = client;                       
         });
       }
       //Ending a connection
@@ -65,13 +63,13 @@ export function connectClient(query ,dbConfig,database ){
           }
         })
       }
-      
+      console.log(clients.length);
       currentDb.query(query , (err , rows)=> {
         if(err ){
           return reject(err.stack.split('\n')[0]);
         }
         resolve(rows);
-      })
+      });
     }
     else{
       let err='Please login first';

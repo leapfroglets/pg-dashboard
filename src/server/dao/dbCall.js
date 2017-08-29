@@ -3,30 +3,18 @@ import * as conn from '../connection';
 let client;
 
 export function dbConnect(dbConfig){
-  return new Promise((resolve , reject) => {
-     conn.firstConnect(dbConfig)
-     .then(reply => resolve(reply))
-     .catch(err => reject(err));
-  })
+  
+  return conn.firstConnect(dbConfig);
   
 }
 
 export function queryCall(query , dbConfig , database){
-  return new Promise((resolve , reject) => {
-    query = query.toLowerCase();
-    conn.connectClient(query , dbConfig, database)
-      .then(reply =>{
-        resolve(reply);
-     })
-     .catch(err => {reject(err)});
-  })
+ 
+  return conn.connectClient(query , dbConfig , database);
   
 }
 
 export function logOut(){
-  return new Promise((resolve , reject) => {
-    conn.disConnect()
-    .then(reply => resolve(reply))
-    .catch(err => reject(err));
-  })
+ 
+  return conn.disConnect();
 }
