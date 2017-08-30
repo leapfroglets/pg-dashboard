@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
-class CopyDatabase extends Component {
+class RenameDatabase extends Component {
   constructor() {
     super();
     this.state = {
@@ -8,14 +8,14 @@ class CopyDatabase extends Component {
       reply: '',
       error: ''
     };
-    this.copyDatabase = this.copyDatabase.bind(this);
+    this.renameDatabase = this.renameDatabase.bind(this);
   }
-  copyDatabase() {
+  renameDatabase() {
     if (this.state.textBoxValue !== '') {
-      console.log(`create database ${this.state.textBoxValue} WITH TEMPLATE ${this.props.currDbname};`);
+      console.log(`alter database ${this.props.currDbname} rename to ${this.state.textBoxValue};`);
       let data = {
-        query: `create database ${this.state.textBoxValue} with template ${this.props.currDbname};`,
-        "dbname": this.props.currDbname
+        query: `alter database ${this.props.currDbname} rename to ${this.state.textBoxValue};`,
+        "dbname": 'postgres'
       };
       httpUtil.post(`http://localhost:4553/api/database/queries`, data)
         .then(response => {
@@ -31,7 +31,7 @@ class CopyDatabase extends Component {
     return (
       <div className='col-md-4'>
         <div className='x_panel'>
-          <div className='x_title'>Copy {this.props.currDbname} to</div>
+          <div className='x_title'>Rename {this.props.currDbname} to</div>
           <div>
             <input type='text' className='form-control' id='dbName' placeholder='New Database'
               value={this.state.textBoxValue}
@@ -42,11 +42,12 @@ class CopyDatabase extends Component {
           </div>
           <div className='ln_solid'></div>
           <input type='button' className='btn btn-round btn-default'
-            value='Copy' onClick={() => this.copyDatabase()}
+            value='Rename' onClick={() => this.renameDatabase()}
           />
         </div>
       </div>
+
     )
   }
 }
-export default CopyDatabase;
+export default RenameDatabase;
