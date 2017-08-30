@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, NavLink, Switch} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 import SqlEditor from './components/SqlEditor';
 import Browse from './components/Browse';
 import Insert from './components/Insert';

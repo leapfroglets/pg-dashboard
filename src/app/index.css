@@ -1,3 +1,8 @@
+html, body, #root, #root>div {
+  height: 100%
+}
+[data-reactroot] 
+        {height: 100% !important; }
 body {
   margin: 0;
   padding: 0;
@@ -8,12 +13,13 @@ textarea{
   resize: none;
 }
 .left_col.scroll-view{
-  height:100vh; 
+   height:100vh;  
   max-height:100%;
   max-width:100%;
 }
 .col-md-3.left-container{
   background: #2A3F54;
+  height:100%;
   
 }
 .col-md-9.right-container{

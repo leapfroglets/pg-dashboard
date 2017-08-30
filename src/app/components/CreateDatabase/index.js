@@ -11,7 +11,7 @@ class CreateDatabase extends Component{
     };
   }
   createDatabase(){
-    if(this.state.textBoxValue !=''){
+    if(this.state.textBoxValue !==''){
       let data={
         query:`create database ${this.state.textBoxValue}`,
         dbname:"postgres"

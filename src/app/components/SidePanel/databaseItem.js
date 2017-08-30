@@ -38,9 +38,9 @@ class DatabaseItem extends Component{
         })
     }
   }
-  redirect(){
+  redirect(path){
     // console.log("dbitem",this.props.history);
-    this.props.history.push('/browse');
+    this.props.history.push(path);
   }
   render(){
     if(this.state.isLoaded === true){
@@ -48,12 +48,12 @@ class DatabaseItem extends Component{
       return(
         <li key ={this.props.dbname}>
           <button onClick ={() => {this.showTables()}}>{sign}</button> 
-          <a onClick = {() => {this.props.onClick(this.props.dbname,null)}}><i className="fa fa-home"></i>{this.props.dbname}</a>
+          <a onClick = {() => {this.props.onClick(this.props.dbname,null);this.redirect('/sqleditor')}}><i className="fa fa-home"></i>{this.props.dbname}</a>
           <ul id = {this.props.dbname} className="nav child_menu">
             {this.state.tabList.map(table => {
               return(
                 <li key = {table.table_name}>
-                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name);this.redirect()}}>{table.table_name}</a>
+                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name);this.redirect('/browse')}}>{table.table_name}</a>
                 </li>
               );
             })}

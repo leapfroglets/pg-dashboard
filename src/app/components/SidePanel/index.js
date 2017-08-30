@@ -8,7 +8,7 @@ class SidePanel extends Component{
     return(
           <div className="left_col scroll-view">
             <div className="navbar nav_title" style={{border: 0}} onClick={() => {this.props.onClick(null,null)}}>
-              <NavLink to='/databases'><img src="images/logo2.png" className="logo"/><span className = "pg-title">PG admin</span></NavLink>
+              <NavLink to='/databases'><img src="images/logo2.png" alt="logo" className="logo"/><span className = "pg-title">PG admin</span></NavLink>
             </div>
 
             <div className="clearfix"></div>
