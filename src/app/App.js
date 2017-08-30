@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SqlEditor from './components/SqlEditor';
 import SidePanel from './components/SidePanel';
-import NavBar from './navBar';
+import NavBar from './components/NavBar';
 import * as httpUtil from './httpUtil';
 
 class App extends Component {
@@ -35,7 +35,7 @@ class App extends Component {
         <div className = "col-md-3 left-container">
           <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}} history={this.props.history}/>
         </div>
-             <div className = "col-md-9 right-container"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable} match={this.props.match}/></div>     
+          <div className = "col-md-9 right-container"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable} match={this.props.match}/></div>     
       </div>
     );
   }

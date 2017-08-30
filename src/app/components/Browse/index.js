@@ -38,7 +38,6 @@ class Browse extends Component{
       isLoaded:false
     })
     if(nextProps.table && nextProps.dbname){
-      console.log('will receive');
       this.retrieveResponse(nextProps);
     }
   }

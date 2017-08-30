@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Route, NavLink} from 'react-router-dom';
-import SqlEditor from './components/SqlEditor';
-import Browse from './components/Browse';
-import Insert from './components/Insert';
-import Operations from './components/Operations';
-import Databases from './components/Databases';
+import SqlEditor from '../SqlEditor';
+import Browse from '../Browse';
+import Insert from '../Insert';
+import Operations from '../Operations';
+import Databases from '../Databases';
 
 class NavBar extends Component{
   render(){
