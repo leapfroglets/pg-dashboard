@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SqlEditor from "./components/SqlEditor";
 import SidePanel from "./components/SidePanel";
 import NavBar from "./components/NavBar";
+import NavBreadCrumb from "./components/NavBreadCrumb";
 import * as httpUtil from "./httpUtil";
 
 class App extends Component {
@@ -42,11 +43,15 @@ class App extends Component {
           />
         </div>
         <div className="col-md-9 right-container">
+          <NavBreadCrumb
+            currDbname={this.state.currDbname}
+            currTable={this.state.currTable}
+          />
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
-            match={this.props.match} 
-            refresh={()=>this.refs.side.refreshSidePanel()}           
+            match={this.props.match}
+            refresh={() => this.refs.side.refreshSidePanel()}
           />
         </div>
       </div>
