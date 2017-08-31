@@ -13,87 +13,85 @@ export function firstConnect(dbConfig){
         return reject(err.stack.split('\n')[0]);
       }
       clients.push(client);
-      resolve('logged in successfully');
+    
+      resolve({reply:'logged in successfully'});
     });
     
   })
 
 }
 
-export function connectClient(query ,dbConfig ){
+export function connectClient(query ,dbConfig,database ){
 
   return new Promise((resolve , reject) => {
-    if(clients.length>0){
-      console.log(clients.length);
-    let flag=0;
-    clients.forEach((client) => {
-      
-      if(dbConfig.database){         
-        if(client.connectionParameters.database == dbConfig.database){
-          currentDb = client;
-          flag=1;
-          client.query(query , (err , rows)=>{
-            if(err){
-              return reject (err);
-            }
-            resolve(rows);
-          });
-          
+    
+    let flag = 0;
+    if(clients.length > 0){
+      clients.forEach((client) => {      
+        //Using an existing connection
+        if(dbConfig.database){        
+          if(client.connectionParameters.database == dbConfig.database){
+            currentDb = client;
+            flag=1;                      
+          }
+        }      
+      })
+      //Creating a new connection
+      if(flag ==0){ 
+        let conString = `postgres://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
+        let client1 = new pg.Client(conString);
+        currentDb = client1;
+        client1.connect((err , client , done) => {
+          if(err){
+            let error = err.stack.split('\n')[0];
+            return reject(error);
+          }
+          clients.push(client);
+          currentDb = client;                       
+        });
+      }
+      //Ending a connection
+      if(database){
+        if(database == currentDb.connectionParameters.database){        
+          let err ='Database currently in use';
+          return reject(err);
         }
-      }      
-    })
-    if(flag ==0){
-    let conString = `postgres://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
-    let client1 = new pg.Client(conString);
-    currentDb = client1;
-    client1.connect((err , client , done) => {
-      if(err){
-        return reject(err.stack.split('\n')[0]);
+        clients.forEach((client) => {
+          if(client.connectionParameters.database == database){        
+            client.end();
+            client.connectionParameters.database=' ';
+          }
+        })
       }
-      clients.push(client);
-                client.query(query , (err , rows)=>{
-            
-            if(err){
-              return reject (err);
-            }
-            resolve(rows);
-          });
       
-    });
+      currentDb.query(query , (err , rows)=> {
+        if(err ){
+          return reject(err.stack.split('\n')[0]);
+        }
+        resolve(rows);
+      });
     }
-    if(!dbConfig.database){
- 
-      currentDb.connect((err , client , done) => {
-      if(err){
-        return reject(err.stack.split('\n')[0]);
-      }
-      clients.push(client);
-          client.query(query , (err , rows)=>{
-            
-            if(err){
-              return reject (err);
-            }
-            resolve(rows);
-          });
-      
-    }); 
+    else{
+      let err='Please login first';
+      reject(err);
     }
     
-    }
-  else{
-    let err='Please login first';
-    reject(err);
-  }
   })  
   
 }
 
 export function disConnect(){
   return new Promise((resolve, reject) => {
-    clients.forEach((client)=> {
-      client.end();
-    })
-    clients.length = 0;
-    resolve('logged out ');
+    if(clients.length == 0){
+      reject('Please login first');  
+    }
+    else{
+      clients.forEach((client)=> {
+        client.end();
+      })
+      clients.length = 0;
+      resolve({reply:'logged out '});
+    }
+    
   })
 }
