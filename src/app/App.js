@@ -1,32 +1,59 @@
-import React, { Component } from 'react';
-import SqlEditor from './components/SqlEditor';
-import SidePanel from './components/DatabaseList';
-import NavBar from './components/NavBar';
+import React, { Component } from "react";
+import SqlEditor from "./components/SqlEditor";
+import SidePanel from "./components/SidePanel";
+import NavBar from "./components/NavBar";
+import NavBreadCrumb from "./components/NavBreadCrumb";
+import * as httpUtil from "./httpUtil";
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      currDbname:null,
-      currTable:null
+      currDbname: null,
+      currTable: null
     };
   }
 
-  handleClick(dbName, table){
-    console.log(dbName,table);
+  handleClick(dbName, table) {
+    // console.log(dbName,table);
     this.setState({
-      currDbname:dbName,
-      currTable:table
-    })
+      currDbname: dbName,
+      currTable: table
+    });
   }
+
+  componentWillMount() {
+    let data = {
+      user: "postgres",
+      password: "12345678"
+    };
+    httpUtil.post(`http://localhost:4553/api/database/login`, data);
+  }
+
   render() {
     return (
       <div className="App">
-        <div className = "left_container clearfix">
-          <SidePanel onClick={(dbname,table) => {this.handleClick(dbname,table)}}/>
+        <div className="col-md-3 left-container">
+          <SidePanel
+            onClick={(dbname, table) => {
+              this.handleClick(dbname, table);
+            }}
+            ref="side"
+            history={this.props.history}
+          />
         </div>
-        <div className = "right_container clearfix"><NavBar currDbname={this.state.currDbname} currTable={this.state.currTable}/></div>
-        <span>{this.state.currDbname } {this.state.currTable}</span>
+        <div className="col-md-9 right-container">
+          <NavBreadCrumb
+            currDbname={this.state.currDbname}
+            currTable={this.state.currTable}
+          />
+          <NavBar
+            currDbname={this.state.currDbname}
+            currTable={this.state.currTable}
+            match={this.props.match}
+            refresh={() => this.refs.side.refreshSidePanel()}
+          />
+        </div>
       </div>
     );
   }
