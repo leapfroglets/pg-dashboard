@@ -11,17 +11,12 @@ class DatabaseItem extends Component{
     };
   }
 
-  flagOn(){
-    this.setState({
-      plusIsNext:!this.state.plusIsNext
-    });
-  }
   componentWillMount(){
     let data ={
       query:"select * FROM information_schema.tables WHERE table_schema='public'",
       dbname:this.props.dbname
     };
-    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
+    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
       this.setState({
         tabList:response.data.reply.rows,
         isLoaded:true
@@ -42,19 +37,24 @@ class DatabaseItem extends Component{
           plusIsNext:true
         })
     }
-    //this.flagOn();
+  }
+  redirect(){
+    // console.log("dbitem",this.props.history);
+    this.props.history.push('/browse');
   }
   render(){
     if(this.state.isLoaded === true){
       let sign = this.state.plusIsNext ? '+':'-';
       return(
-        <li key ={this.props.dbname} >
+        <li key ={this.props.dbname}>
           <button onClick ={() => {this.showTables()}}>{sign}</button> 
-          <a><i className="fa fa-home"></i>{this.props.dbname}</a>
+          <a onClick = {() => {this.props.onClick(this.props.dbname,null)}}><i className="fa fa-home"></i>{this.props.dbname}</a>
           <ul id = {this.props.dbname} className="nav child_menu">
             {this.state.tabList.map(table => {
               return(
-                <li key = {table.table_name}><a href="index.html">{table.table_name}</a></li>
+                <li key = {table.table_name}>
+                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name);this.redirect()}}>{table.table_name}</a>
+                </li>
               );
             })}
           </ul>

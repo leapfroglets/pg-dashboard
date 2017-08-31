@@ -11,21 +11,17 @@ class SqlResult extends Component {
     this.getQuery = this.getQuery.bind(this);
   }
   componentWillMount() {
-    console.log('componentWillMount()' + this.props.query)
     this.getQuery(this.props.query);
   }
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps()' + nextProps.query)
     this.getQuery(nextProps.query);
 
   }
   getQuery(query) {
     if (query) {
-
-      let data = { "query": query, "dbname": "testdb" }
-      httpUtil.post(`http://localhost:4553/api/queries`, data).then(
+      let data = { "query": query, "dbname":this.props.currDbname }
+      httpUtil.post(`http://localhost:4553/api/database/queries`, data).then(
         response => {
-
           if (response.data.reply.hasOwnProperty('rows'))
             this.setState({ result: response.data, error: '', update: '' });
           else
@@ -33,14 +29,9 @@ class SqlResult extends Component {
         }
       )
         .catch(err => {
-          console.log('err her', err);
           if (err.response) {
-            
               this.setState({ result: [], update: '', error:'error in operation.'+err.response.data.error.message.toString()  });
           }
-
-
-
         })
     }
   }
@@ -64,7 +55,6 @@ class SqlResult extends Component {
               </tr>
             </thead>
             <tbody>
-
               {
                 this.state.result.reply === undefined ? '' :
                   this.state.result.reply.rows.map((row, i) => {
@@ -80,7 +70,6 @@ class SqlResult extends Component {
         }
       </div>
     )
-
   }
 }
 export default SqlResult;

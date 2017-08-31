@@ -14,7 +14,7 @@ class DatabaseList extends Component{
       query:"select * FROM pg_database where datistemplate=false and datname!='postgres'",
       dbname:"postgres"
     };
-    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
+    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
       this.setState({
         dbList:response.data.reply.rows,
         isLoaded:true
@@ -29,7 +29,8 @@ class DatabaseList extends Component{
         {
           this.state.dbList.map(dbInfo => {
             return(
-              <DatabaseItem dbname = {dbInfo.datname} key = {dbInfo.datname}/>
+              <DatabaseItem dbname = {dbInfo.datname} key = {dbInfo.datname}
+              onClick = {(dbname,table) => {this.props.onClick(dbname,table)}} history={this.props.history}/>
             )
           })
         }
