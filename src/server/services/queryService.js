@@ -21,7 +21,11 @@ export function queryCall(query , dbConfig){
     query = query.toLowerCase();
     let action = query.split(' ')[0];
     if((query.split(' ')[0]=='drop' || query.split(' ')[0]== 'alter') && query.split(' ')[1] == 'database'){
-      dao.queryCall(query , dbConfig, query.split(' ')[2] )
+      let database = query.split(' ')[2];
+      if(database[database.length-1] == ';'){
+        database = database.split(';')[0];    
+      }
+      dao.queryCall(query , dbConfig, database )
       .then(reply=>{
         resolve({reply:`database ${action}ed`});
       })

@@ -63,7 +63,7 @@ export function connectClient(query ,dbConfig,database ){
           }
         })
       }
-      console.log(clients.length);
+      
       currentDb.query(query , (err , rows)=> {
         if(err ){
           return reject(err.stack.split('\n')[0]);
