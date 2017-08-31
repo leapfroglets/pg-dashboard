@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
-class Operations extends Component{
-  render(){
-    return(
-      <div>
-        OPERATIONS!!
-      </div>
-    );
+class Operations extends Component {
+  render() {
+    return <div>OPERATIONS!!</div>;
   }
 }
 

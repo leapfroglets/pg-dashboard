@@ -1,68 +1,91 @@
-import React, {Component} from 'react';
-import * as httpUtil from '../../httpUtil';
+import React, { Component } from "react";
+import * as httpUtil from "../../httpUtil";
 
-class DatabaseItem extends Component{
-  constructor(){
+class DatabaseItem extends Component {
+  constructor() {
     super();
     this.state = {
-      tabList : [],
-      plusIsNext : true,
+      tabList: [],
+      plusIsNext: true,
       isLoaded: false
     };
   }
 
-  componentWillMount(){
-    let data ={
-      query:"select * FROM information_schema.tables WHERE table_schema='public'",
-      dbname:this.props.dbname
+  componentWillMount() {
+    let data = {
+      query:
+        "select * FROM information_schema.tables WHERE table_schema='public'",
+      dbname: this.props.dbname
     };
-    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
-      this.setState({
-        tabList:response.data.reply.rows,
-        isLoaded:true
-      })
-    });
+    httpUtil
+      .post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          tabList: response.data.reply.rows,
+          isLoaded: true
+        });
+      });
   }
-  showTables(){
+  showTables() {
     let element = document.getElementById(this.props.dbname);
-    if(this.state.plusIsNext){
+    if (this.state.plusIsNext) {
       element.style.display = "block";
       this.setState({
-          plusIsNext:false
-        })
-    }
-    else{
+        plusIsNext: false
+      });
+    } else {
       element.style.display = "none";
       this.setState({
-          plusIsNext:true
-        })
+        plusIsNext: true
+      });
     }
   }
-  redirect(){
+  redirect(path) {
     // console.log("dbitem",this.props.history);
-    this.props.history.push('/browse');
+    this.props.history.push(path);
   }
-  render(){
-    if(this.state.isLoaded === true){
-      let sign = this.state.plusIsNext ? '+':'-';
-      return(
-        <li key ={this.props.dbname}>
-          <button onClick ={() => {this.showTables()}}>{sign}</button> 
-          <a onClick = {() => {this.props.onClick(this.props.dbname,null)}}><i className="fa fa-home"></i>{this.props.dbname}</a>
-          <ul id = {this.props.dbname} className="nav child_menu">
+  render() {
+    if (this.state.isLoaded === true) {
+      let sign = this.state.plusIsNext ? "+" : "-";
+      return (
+        <li key={this.props.dbname}>
+          <button
+            onClick={() => {
+              this.showTables();
+            }}
+          >
+            {sign}
+          </button>
+          <a
+            onClick={() => {
+              this.props.onClick(this.props.dbname, null);
+              this.redirect("/sqleditor");
+            }}
+          >
+            <i className="fa fa-home" />
+            {this.props.dbname}
+          </a>
+          <ul id={this.props.dbname} className="nav child_menu">
             {this.state.tabList.map(table => {
-              return(
-                <li key = {table.table_name}>
-                  <a onClick = {() => {this.props.onClick(this.props.dbname,table.table_name);this.redirect()}}>{table.table_name}</a>
+              return (
+                <li key={table.table_name}>
+                  <a
+                    onClick={() => {
+                      this.props.onClick(this.props.dbname, table.table_name);
+                      this.redirect("/browse");
+                    }}
+                  >
+                    {table.table_name}
+                  </a>
                 </li>
               );
             })}
           </ul>
         </li>
-    );
+      );
+    } else {
+      return null;
     }
-    else{return null;}
-    
   }
 }
 

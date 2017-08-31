@@ -6,14 +6,16 @@ class SqlEditor extends Component {
     super();
     this.state = {
       brokenQueries: []
-    }
+    };
     this.executeQuery = this.executeQuery.bind(this);
   }
   executeQuery(query) {
-    if (query !== '') {
-      let queries = query.split(';')
-        .filter(oneQuery => { if (oneQuery !== '\n') return oneQuery; return null; });
-      this.setState({ brokenQueries: queries })
+    if (query !== "") {
+      let queries = query.split(";").filter(oneQuery => {
+        if (oneQuery !== "\n") return oneQuery;
+        return null;
+      });
+      this.setState({ brokenQueries: queries });
     }
   }
   render() {

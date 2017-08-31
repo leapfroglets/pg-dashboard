@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import * as httpUtil from '../../httpUtil';
+import React, { Component } from "react";
+import * as httpUtil from "../../httpUtil";
 class SqlResult extends Component {
   constructor() {
     super();
     this.state = {
       result: [],
-      error: '',
-      update: ''
-    }
+      error: "",
+      update: ""
+    };
     this.getQuery = this.getQuery.bind(this);
   }
   componentWillMount() {
@@ -15,7 +15,6 @@ class SqlResult extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.getQuery(nextProps.query);
-
   }
   getQuery(query) {
     if (query) {
@@ -25,9 +24,12 @@ class SqlResult extends Component {
           if (response.data.reply.hasOwnProperty('rows'))
             this.setState({ result: response.data, error: '', update: '' });
           else
-            this.setState({ result: [], error: '', update: response.data.reply });
-        }
-      )
+            this.setState({
+              result: [],
+              error: "",
+              update: response.data.reply
+            });
+        })
         .catch(err => {
           if (err.response) {
               this.setState({ result: [], update: '', error:'error in operation.'+err.response.data.error.message.toString()  });
@@ -37,21 +39,20 @@ class SqlResult extends Component {
   }
   render() {
     return (
-      <div className='x_content'>
+      <div className="x_content">
         {this.state.error}
         {this.state.update}
-        {
-          this.state.result !== undefined
-          &&
+        {this.state.result !== undefined && (
           <table className="table table-striped">
             <thead>
               <tr>
-                {
-                  this.state.result.reply === undefined ? '' :
-                    this.state.result.reply.fields.map((field, i) => {
-                      return (<th key={i}>{field.name}</th>)
-                    })
-                }
+                {this.state.result.reply === undefined ? (
+                  ""
+                ) : (
+                  this.state.result.reply.fields.map((field, i) => {
+                    return <th key={i}>{field.name}</th>;
+                  })
+                )}
               </tr>
             </thead>
             <tbody>
@@ -67,7 +68,7 @@ class SqlResult extends Component {
               }
             </tbody>
           </table>
-        }
+        )}
       </div>
     )
   }
