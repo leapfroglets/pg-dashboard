@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Insert extends Component{
+class Operations extends Component{
   render(){
     return(
       <div>
@@ -10,4 +10,4 @@ class Insert extends Component{
   }
 }
 
-export default Insert;
+export default Operations;
