@@ -21,12 +21,14 @@ export function firstConnect(dbConfig){
 }
 
 export function connectClient(query ,dbConfig ){
-//console.log(query , dbConfig);
+
   return new Promise((resolve , reject) => {
-    console.log(clients.length);
+    if(clients.length>0){
+      console.log(clients.length);
     let flag=0;
     clients.forEach((client) => {
-      if(dbConfig.database){ 
+      
+      if(dbConfig.database){         
         if(client.connectionParameters.database == dbConfig.database){
           currentDb = client;
           flag=1;
@@ -42,14 +44,15 @@ export function connectClient(query ,dbConfig ){
     })
     if(flag ==0){
     let conString = `postgres://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
-    let client = new pg.Client(conString);
-    currentDb = client;
-    client.connect((err , client , done) => {
+    let client1 = new pg.Client(conString);
+    currentDb = client1;
+    client1.connect((err , client , done) => {
       if(err){
         return reject(err.stack.split('\n')[0]);
       }
       clients.push(client);
                 client.query(query , (err , rows)=>{
+            
             if(err){
               return reject (err);
             }
@@ -59,13 +62,14 @@ export function connectClient(query ,dbConfig ){
     });
     }
     if(!dbConfig.database){
-      console.log(currentDb);
+ 
       currentDb.connect((err , client , done) => {
       if(err){
         return reject(err.stack.split('\n')[0]);
       }
       clients.push(client);
-                client.query(query , (err , rows)=>{
+          client.query(query , (err , rows)=>{
+            
             if(err){
               return reject (err);
             }
@@ -75,6 +79,21 @@ export function connectClient(query ,dbConfig ){
     }); 
     }
     
+    }
+  else{
+    let err='Please login first';
+    reject(err);
+  }
   })  
   
+}
+
+export function disConnect(){
+  return new Promise((resolve, reject) => {
+    clients.forEach((client)=> {
+      client.end();
+    })
+    clients.length = 0;
+    resolve('logged out ');
+  })
 }

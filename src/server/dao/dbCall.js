@@ -67,3 +67,10 @@ export function queryCall(query , dbConfig){
   })
   
 }
+
+export function logOut(){
+  return new Promise((resolve , reject) => {
+    conn.disConnect()
+    .then(reply => resolve(reply));
+  })
+}
