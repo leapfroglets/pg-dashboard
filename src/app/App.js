@@ -42,7 +42,6 @@ class App extends Component {
           />
         </div>
         <div className="col-md-9 right-container">
-          <button onClick={()=>this.refs.side.refreshSidePanel()}> hello</button>
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
