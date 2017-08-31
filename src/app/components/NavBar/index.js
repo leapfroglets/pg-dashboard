@@ -73,7 +73,13 @@ class NavBar extends Component {
         />
         <Route
           path={`${this.props.match.url}sqleditor`}
-          component={SqlEditor}
+          component={() => (
+            <SqlEditor
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+              refresh={()=>this.props.refresh()}
+            />
+          )}
         />
         <Route
           path={`${this.props.match.url}insert`}

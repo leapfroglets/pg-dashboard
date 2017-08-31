@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SqlEditor from "./components/SqlEditor";
 import SidePanel from "./components/SidePanel";
 import NavBar from "./components/NavBar";
+import NavBreadCrumb from "./components/NavBreadCrumb";
 import * as httpUtil from "./httpUtil";
 
 class App extends Component {
@@ -24,7 +25,7 @@ class App extends Component {
   componentWillMount() {
     let data = {
       user: "postgres",
-      password: "nirmala"
+      password: "12345678"
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }
@@ -37,14 +38,20 @@ class App extends Component {
             onClick={(dbname, table) => {
               this.handleClick(dbname, table);
             }}
+            ref="side"
             history={this.props.history}
           />
         </div>
         <div className="col-md-9 right-container">
+          <NavBreadCrumb
+            currDbname={this.state.currDbname}
+            currTable={this.state.currTable}
+          />
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
             match={this.props.match}
+            refresh={() => this.refs.side.refreshSidePanel()}
           />
         </div>
       </div>
