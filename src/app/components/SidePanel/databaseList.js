@@ -11,7 +11,6 @@ class DatabaseList extends Component {
     this.refreshDatabaseList=this.refreshDatabaseList.bind(this);
   }
   refreshDatabaseList(){
-    console.log('refreshDatabaseList()');
     let data = {
       query:
         "select * FROM pg_database where datistemplate=false and datname!='postgres'",

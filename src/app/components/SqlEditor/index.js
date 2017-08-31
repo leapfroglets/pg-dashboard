@@ -44,7 +44,6 @@ class SqlEditor extends Component {
         <div className="" id="output">
           <div className="x_panel no-border">
             {this.state.brokenQueries.map((q, i) => {
-              console.log("index js" + q);
               return (
                 <div key={i}>
                   <div>

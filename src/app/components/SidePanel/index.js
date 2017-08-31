@@ -9,7 +9,6 @@ class SidePanel extends Component {
     this.refreshSidePanel=this.refreshSidePanel.bind(this);
   }
   refreshSidePanel(){
-    console.log( 'refreshSidePanel');
     this.refs.child1.refreshDatabaseList();
   }
   render() {
