@@ -8,6 +8,23 @@ class DatabaseList extends Component {
       isLoaded: false,
       dbList: []
     };
+    this.refreshDatabaseList=this.refreshDatabaseList.bind(this);
+  }
+  refreshDatabaseList(){
+    console.log('refreshDatabaseList()');
+    let data = {
+      query:
+        "select * FROM pg_database where datistemplate=false and datname!='postgres'",
+      dbname: "postgres"
+    };
+    httpUtil
+      .post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          dbList: response.data.reply.rows,
+          isLoaded: true
+        });
+      });
   }
   componentWillMount() {
     let data = {

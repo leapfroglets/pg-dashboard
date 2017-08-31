@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import SqlResult from './SqlResult';
-import './style.css';
+import React, { Component } from "react";
+import SqlResult from "./SqlResult";
+import "./style.css";
 class SqlEditor extends Component {
   constructor() {
     super();
@@ -21,34 +21,48 @@ class SqlEditor extends Component {
   render() {
     return (
       <div>
-        <div className='x_panel'>
+        <div className="x_panel">
           <div>
-            <textarea placeholder='Enter your SQL here' className='form-control' id='textInput'/>
+            <textarea
+              placeholder="Enter your SQL here"
+              className="form-control"
+              id="textInput"
+            />
           </div>
-          <div className="ln_solid"></div>
+          <div className="ln_solid" />
           <div>
-            <input className='btn btn-round btn-default' type='button' value='execute'
-              onClick={() => { this.executeQuery(document.getElementById('textInput').value) }} />
+            <input
+              className="btn btn-round btn-default"
+              type="button"
+              value="execute"
+              onClick={() => {
+                this.executeQuery(document.getElementById("textInput").value);
+              }}
+            />
           </div>
         </div>
-        <div className='' id='output'>
-          <div className='x_panel no-border'>
-            {
-              this.state.brokenQueries.map((q, i) => {
-                console.log('index js' + q);
-                return (
-                  <div key={i}>
-                    <div><h2>Result:{i + 1}</h2></div>
-                    <SqlResult currDbname={this.props.currDbname} query={q.trim()} key={i + 'q2'} />
+        <div className="" id="output">
+          <div className="x_panel no-border">
+            {this.state.brokenQueries.map((q, i) => {
+              console.log("index js" + q);
+              return (
+                <div key={i}>
+                  <div>
+                    <h2>Result:{i + 1}</h2>
                   </div>
-                )
-              }
-              )
-            }
+                  <SqlResult
+                    currDbname={this.props.currDbname}
+                    query={q.trim()}
+                    key={i + "q2"}
+                    refresh={()=>this.props.refresh()}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 export default SqlEditor;
