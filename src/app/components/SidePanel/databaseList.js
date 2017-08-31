@@ -8,9 +8,9 @@ class DatabaseList extends Component {
       isLoaded: false,
       dbList: []
     };
-    this.refreshDatabaseList=this.refreshDatabaseList.bind(this);
+    this.refreshDatabaseList = this.refreshDatabaseList.bind(this);
   }
-  refreshDatabaseList(){
+  refreshDatabaseList() {
     let data = {
       query:
         "select * FROM pg_database where datistemplate=false and datname!='postgres'",
@@ -23,6 +23,10 @@ class DatabaseList extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
+      })
+      .then(() => {
+        for (let i = 0; i < Object.keys(this.refs).length; i++)
+          this.refs["child" + i].refreshDataItem();
       });
   }
   componentWillMount() {
@@ -45,9 +49,10 @@ class DatabaseList extends Component {
     if (this.state.isLoaded === true) {
       return (
         <ul className="nav side-menu">
-          {this.state.dbList.map(dbInfo => {
+          {this.state.dbList.map((dbInfo, i) => {
             return (
               <DatabaseItem
+                ref={`child${i}`}
                 dbname={dbInfo.datname}
                 key={dbInfo.datname}
                 onClick={(dbname, table) => {

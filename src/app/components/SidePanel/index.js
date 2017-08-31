@@ -4,11 +4,11 @@ import "./style.css";
 import { NavLink } from "react-router-dom";
 
 class SidePanel extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.refreshSidePanel=this.refreshSidePanel.bind(this);
+    this.refreshSidePanel = this.refreshSidePanel.bind(this);
   }
-  refreshSidePanel(){
+  refreshSidePanel() {
     this.refs.child1.refreshDatabaseList();
   }
   render() {
@@ -37,7 +37,8 @@ class SidePanel extends Component {
         >
           <div className="menu_section">
             <h3>Databases</h3>
-            <DatabaseList ref='child1'
+            <DatabaseList
+              ref="child1"
               onClick={(dbname, table) => {
                 this.props.onClick(dbname, table);
               }}
