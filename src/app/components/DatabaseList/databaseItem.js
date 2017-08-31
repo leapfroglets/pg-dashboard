@@ -16,7 +16,7 @@ class DatabaseItem extends Component{
       query:"select * FROM information_schema.tables WHERE table_schema='public'",
       dbname:this.props.dbname
     };
-    httpUtil.post(`http://localhost:4553/api/queries`,data).then(response => {
+    httpUtil.post(`http://localhost:4553/api/database/queries`,data).then(response => {
       this.setState({
         tabList:response.data.reply.rows,
         isLoaded:true
