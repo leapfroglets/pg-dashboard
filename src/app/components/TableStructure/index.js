@@ -111,6 +111,7 @@ class TableStructure extends Component {
             setShowChange={v => this.setShowChange(v)}
             currDbname={this.props.currDbname}
             currTable={this.props.currTable}
+            refreshData={()=>this.getResult()}
           />
         )}
       </div>
