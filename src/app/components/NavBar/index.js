@@ -4,6 +4,7 @@ import SqlEditor from '../SqlEditor';
 import Browse from '../Browse';
 import Insert from '../Insert';
 import DatabaseOperations from '../DatabaseOperations';
+import TableOperations from '../TableOperations';
 import Databases from '../Databases';
 
 class NavBar extends Component {
@@ -105,6 +106,16 @@ class NavBar extends Component {
           component={() => (
             <DatabaseOperations
               currDbname={this.props.currDbname}
+              refresh={() => this.props.refresh()}
+            />
+          )}
+        />
+        <Route
+          path={`${this.props.match.url}tableoperations`}
+          component={() => (
+            <TableOperations
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
               refresh={() => this.props.refresh()}
             />
           )}
