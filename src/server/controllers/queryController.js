@@ -10,12 +10,9 @@ let dbConfig={
   password: ' ',
   database:' ',
   port:' ',
-  max:10,
-  host:'127.0.0.1',
-  idleTimeoutMillis:30000
+  host:'127.0.0.1'
 }
 //insert or create queries
-
 controller.post('/login' , (req , res , next) => {
   
   dbConfig.database = req.body.dbname || 'postgres';
@@ -38,10 +35,15 @@ controller.post('/login' , (req , res , next) => {
 controller.post('/queries' , (req , res , next) => {
   dbConfig.database = req.body.dbname || dbConfig.database;
   let query = req.body.query;
-  
+  query = query.replace(/\s+/g, ' ').trim();
   services.queryCall(query , dbConfig)
   .then(reply => res.json(reply))
   .catch(err => next(err));
 })
 
+controller.get('/logout' , (req, res , next)=> {
+  services.logOut()
+  .then(reply => res.json(reply))
+  .catch(err => next(err));
+});
 export default controller;
