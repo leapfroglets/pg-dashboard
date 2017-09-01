@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Route, NavLink } from "react-router-dom";
-import SqlEditor from "../SqlEditor";
-import Browse from "../Browse";
-import Insert from "../Insert";
-import Operations from "../Operations";
-import Databases from "../Databases";
+import React, { Component } from 'react';
+import { Route, NavLink } from 'react-router-dom';
+import SqlEditor from '../SqlEditor';
+import Browse from '../Browse';
+import Insert from '../Insert';
+import DatabaseOperations from '../DatabaseOperations';
+import Databases from '../Databases';
 
 class NavBar extends Component {
   render() {
@@ -51,13 +51,23 @@ class NavBar extends Component {
               </NavLink>
             </li>
           ) : null}
-          {this.props.currTable || this.props.currDbname ? (
+          {this.props.currTable ? (
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}operations`}
+                to={`${this.props.match.url}tableoperations`}
               >
-                Operations
+                Table Operations
+              </NavLink>
+            </li>
+          ) : null}
+          {this.props.currDbname && this.props.currTable === null ? (
+            <li>
+              <NavLink
+                activeClassName="activeNav"
+                to={`${this.props.match.url}databaseoperations`}
+              >
+                Database Operations
               </NavLink>
             </li>
           ) : null}
@@ -77,7 +87,7 @@ class NavBar extends Component {
             <SqlEditor
               currDbname={this.props.currDbname}
               currTable={this.props.currTable}
-              refresh={()=>this.props.refresh()}
+              refresh={() => this.props.refresh()}
             />
           )}
         />
@@ -91,8 +101,13 @@ class NavBar extends Component {
           )}
         />
         <Route
-          path={`${this.props.match.url}operations`}
-          component={Operations}
+          path={`${this.props.match.url}databaseoperations`}
+          component={() => (
+            <DatabaseOperations
+              currDbname={this.props.currDbname}
+              refresh={() => this.props.refresh()}
+            />
+          )}
         />
         <Route
           path={`${this.props.match.url}databases`}
