@@ -6,6 +6,7 @@ import Insert from '../Insert';
 import DatabaseOperations from '../DatabaseOperations';
 import TableOperations from '../TableOperations';
 import Databases from '../Databases';
+import TableStructure from '../TableStructure';
 
 class NavBar extends Component {
   render() {
@@ -29,6 +30,16 @@ class NavBar extends Component {
                 to={`${this.props.match.url}browse`}
               >
                 Browse
+              </NavLink>
+            </li>
+          ) : null}
+          {this.props.currTable ? (
+            <li>
+              <NavLink
+                activeClassName="activeNav"
+                to={`${this.props.match.url}tablestructure`}
+              >
+                Table Structure
               </NavLink>
             </li>
           ) : null}
@@ -79,6 +90,15 @@ class NavBar extends Component {
             <Browse
               dbname={this.props.currDbname}
               table={this.props.currTable}
+            />
+          )}
+        />
+        <Route
+          path={`${this.props.match.url}tablestructure`}
+          render={() => (
+            <TableStructure
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
             />
           )}
         />
