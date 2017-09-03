@@ -33,11 +33,15 @@ class ChangeColumn extends Component {
         ? document.getElementById('tbDataType').value
         : this.state.textboxTypeValue;
     let length =
-      this.state.textboxLengthValue === null ||
-      this.state.textboxLengthValue === 0 ||
-      this.state.textboxLengthValue === 'int4'
+      document.getElementById('tbLength').value === null ||
+      this.state.textboxLengthValue === 0
         ? ''
-        : '(' + this.state.textboxLengthValue + ')';
+        : '(' + document.getElementById('tbLength').value + ')';
+    if (
+      document.getElementById('tbDataType').value === 'int4' ||
+      document.getElementById('tbDataType').value === 'text'
+    )
+      length = '';
     query3 += datatype + length;
 
     if (query3 !== '' && query2 !== '') query2 += ' , ';
@@ -51,9 +55,8 @@ class ChangeColumn extends Component {
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
       .then(response => {})
-      .then(this.props.refreshData())
+      .then(this.props.refreshData());
     this.props.setShowChange(false);
-    
   }
   getColumn(columnName) {
     let data = {
@@ -78,6 +81,7 @@ class ChangeColumn extends Component {
       <div>
         {
           <div className="x_panel">
+            <h2>Change Column</h2>
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -144,6 +148,7 @@ class ChangeColumn extends Component {
                           <td>
                             <input
                               className="form-control text-input"
+                              id="tbLength"
                               type="text"
                               onChange={e =>
                                 this.setState({
@@ -151,7 +156,7 @@ class ChangeColumn extends Component {
                                 })}
                               value={
                                 this.state.textboxLengthValue === null ? (
-                                  row['character_maximum_length']
+                                  row['character_maximum_length'] + ''
                                 ) : (
                                   this.state.textboxLengthValue
                                 )
