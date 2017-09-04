@@ -25,6 +25,7 @@ class CreateDatabase extends Component {
             error: ''
           });
         })
+        .then(()=>this.props.refresh())
         .catch(err => {
           this.setState({ reply: '', error: err.response.data.error.message });
         });
