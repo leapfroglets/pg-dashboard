@@ -3,8 +3,10 @@ import { Route, NavLink } from 'react-router-dom';
 import SqlEditor from '../SqlEditor';
 import Browse from '../Browse';
 import Insert from '../Insert';
-import Operations from '../Operations';
+import DatabaseOperations from '../DatabaseOperations';
+import TableOperations from '../TableOperations';
 import Databases from '../Databases';
+import TableStructure from '../TableStructure';
 
 class NavBar extends Component {
   render() {
@@ -31,6 +33,16 @@ class NavBar extends Component {
               </NavLink>
             </li>
           ) : null}
+          {this.props.currTable ? (
+            <li>
+              <NavLink
+                activeClassName="activeNav"
+                to={`${this.props.match.url}tablestructure`}
+              >
+                Table Structure
+              </NavLink>
+            </li>
+          ) : null}
           {this.props.currTable || this.props.currDbname ? (
             <li>
               <NavLink
@@ -51,13 +63,23 @@ class NavBar extends Component {
               </NavLink>
             </li>
           ) : null}
-          {this.props.currTable || this.props.currDbname ? (
+          {this.props.currTable ? (
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}operations`}
+                to={`${this.props.match.url}tableoperations`}
               >
-                Operations
+                Table Operations
+              </NavLink>
+            </li>
+          ) : null}
+          {this.props.currDbname && this.props.currTable === null ? (
+            <li>
+              <NavLink
+                activeClassName="activeNav"
+                to={`${this.props.match.url}databaseoperations`}
+              >
+                Database Operations
               </NavLink>
             </li>
           ) : null}
@@ -72,8 +94,23 @@ class NavBar extends Component {
           )}
         />
         <Route
+          path={`${this.props.match.url}tablestructure`}
+          render={() => (
+            <TableStructure
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+            />
+          )}
+        />
+        <Route
           path={`${this.props.match.url}sqleditor`}
-          component={SqlEditor}
+          component={() => (
+            <SqlEditor
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+              refresh={() => this.props.refresh()}
+            />
+          )}
         />
         <Route
           path={`${this.props.match.url}insert`}
@@ -85,11 +122,21 @@ class NavBar extends Component {
           )}
         />
         <Route
-          path={`${this.props.match.url}operations`}
-          render={() => (
-            <Operations
-              dbname={this.props.currDbname}
-              table={this.props.currTable}
+          path={`${this.props.match.url}databaseoperations`}
+          component={() => (
+            <DatabaseOperations
+              currDbname={this.props.currDbname}
+              refresh={() => this.props.refresh()}
+            />
+          )}
+        />
+        <Route
+          path={`${this.props.match.url}tableoperations`}
+          component={() => (
+            <TableOperations
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+              refresh={() => this.props.refresh()}
             />
           )}
         />
