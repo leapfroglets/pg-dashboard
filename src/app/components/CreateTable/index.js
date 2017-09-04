@@ -69,6 +69,8 @@ class CreateTable extends Component {
             unmount={() => {
               this.handleChildUnmount();
             }}
+            refresh={() => this.props.refresh()}
+            refreshStructure={() => this.props.refreshStructure()}
           />
         ) : null}
       </div>
