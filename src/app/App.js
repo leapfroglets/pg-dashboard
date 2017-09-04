@@ -39,7 +39,7 @@ class App extends Component {
               this.handleClick(dbname, table);
             }}
             ref="side"
-            history={this.obj.props.history}
+            history={this.props.obj.history}
           />
         </div>
         <div className="col-md-9 right-container">
