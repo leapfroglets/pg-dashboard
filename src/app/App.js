@@ -39,7 +39,7 @@ class App extends Component {
               this.handleClick(dbname, table);
             }}
             ref="side"
-            history={this.props.history}
+            history={this.obj.props.history}
           />
         </div>
         <div className="col-md-9 right-container">
@@ -50,7 +50,7 @@ class App extends Component {
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
-            match={this.props.match}
+            match={this.props.obj.match}
             refresh={() => this.refs.side.refreshSidePanel()}
           />
         </div>
