@@ -2,29 +2,29 @@ import React, { Component } from 'react';
 import AddColumns from './addColumns';
 
 class CreateTable extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      tableNameValue:'',
-      columnNoValue:'',
-      go:false
+      tableNameValue: '',
+      columnNoValue: '',
+      go: false
     };
   }
 
-  handleChildUnmount(){
+  handleChildUnmount() {
     this.setState({
-      tableNameValue:'',
-      columnNoValue:'',
-      go:false
-    })
+      tableNameValue: '',
+      columnNoValue: '',
+      go: false
+    });
   }
 
-  addColumns(){
+  addColumns() {
     this.setState({
-      go:true
-    })
+      go: true
+    });
   }
-  
+
   render() {
     return (
       <div>
@@ -38,7 +38,8 @@ class CreateTable extends Component {
                 id="tableName"
                 placeholder="New Table"
                 value={this.state.tableNameValue}
-                onChange={e => this.setState({ tableNameValue: e.target.value })}
+                onChange={e =>
+                  this.setState({ tableNameValue: e.target.value })}
               />
               <input
                 type="text"
@@ -60,7 +61,16 @@ class CreateTable extends Component {
             />
           </div>
         </div>
-        {this.state.go ? <AddColumns dbname={this.props.dbname} tableName={this.state.tableNameValue} columns={this.state.columnNoValue} unmount={() => { this.handleChildUnmount()}}/> : null}   
+        {this.state.go ? (
+          <AddColumns
+            dbname={this.props.dbname}
+            tableName={this.state.tableNameValue}
+            columns={this.state.columnNoValue}
+            unmount={() => {
+              this.handleChildUnmount();
+            }}
+          />
+        ) : null}
       </div>
     );
   }

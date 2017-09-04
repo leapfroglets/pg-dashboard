@@ -17,6 +17,7 @@ textarea{
 }
 .col-md-9.right-container{
   background: white !important;
+  min-height:100vh;
 }
 .activeNav{
   background: #D3D3D3 !important;

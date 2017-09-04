@@ -61,82 +61,84 @@ class TableStructure extends Component {
   }
   render() {
     return (
-      (this.props.currTable!==null) &&
-      <div className="col-md-12">
-        <div className="x_panel">
-          <div className="reply">{this.state.reply}</div>
-          <div>
-            <h2>Table Structuress</h2>
+      this.props.currTable !== null && (
+        <div className="col-md-12">
+          <div className="x_panel">
+            <div className="reply">{this.state.reply}</div>
+            <div>
+              <h2>Table Structuress</h2>
+            </div>
+            <div className="x_content">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Is_Nullable</th>
+                    <th>Length</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.result.reply === undefined ? (
+                    ''
+                  ) : (
+                    this.state.result.reply.rows.map((row, i) => {
+                      return (
+                        <tr key={i}>
+                          {this.state.result.reply.fields.map((field, j) => {
+                            return <td key={j}>{row[field.name]}</td>;
+                          })}
+                          <td>
+                            <button
+                              className="btn btn-round btn-sm btn-default"
+                              onClick={() =>
+                                this.dropColumn(row['column_name'])}
+                            >
+                              Drop
+                            </button>
+                            <button
+                              className="btn btn-round btn-sm btn-default"
+                              onClick={() =>
+                                this.changeColumn(row['column_name'])}
+                            >
+                              Change
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+              <button
+                className="btn btn-round btn-default"
+                onClick={() => this.setShowAdd(true)}
+              >
+                Add Column
+              </button>
+            </div>
           </div>
-          <div className="x_content">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Is_Nullable</th>
-                  <th>Length</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.result.reply === undefined ? (
-                  ''
-                ) : (
-                  this.state.result.reply.rows.map((row, i) => {
-                    return (
-                      <tr key={i}>
-                        {this.state.result.reply.fields.map((field, j) => {
-                          return <td key={j}>{row[field.name]}</td>;
-                        })}
-                        <td>
-                          <button
-                            className="btn btn-round btn-sm btn-default"
-                            onClick={() => this.dropColumn(row['column_name'])}
-                          >
-                            Drop
-                          </button>
-                          <button
-                            className="btn btn-round btn-sm btn-default"
-                            onClick={() =>
-                              this.changeColumn(row['column_name'])}
-                          >
-                            Change
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-            <button
-              className="btn btn-round btn-default"
-              onClick={() => this.setShowAdd(true)}
-            >
-              Add Column
-            </button>
-          </div>
+          {this.state.showChange && (
+            <ChangeColumn
+              column={this.state.columnName}
+              setShowChange={v => this.setShowChange(v)}
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+              refreshData={() => this.getResult()}
+            />
+          )}
+          {this.state.showAdd && (
+            <AddColumn
+              column={this.state.columnName}
+              setShowAdd={v => this.setShowAdd(v)}
+              currDbname={this.props.currDbname}
+              currTable={this.props.currTable}
+              refreshData={() => this.getResult()}
+            />
+          )}
         </div>
-        {this.state.showChange && (
-          <ChangeColumn
-            column={this.state.columnName}
-            setShowChange={v => this.setShowChange(v)}
-            currDbname={this.props.currDbname}
-            currTable={this.props.currTable}
-            refreshData={() => this.getResult()}
-          />
-        )}
-        {this.state.showAdd && (
-          <AddColumn
-            column={this.state.columnName}
-            setShowAdd={v => this.setShowAdd(v)}
-            currDbname={this.props.currDbname}
-            currTable={this.props.currTable}
-            refreshData={() => this.getResult()}
-          />
-        )}
-      </div>
+      )
     );
   }
 }

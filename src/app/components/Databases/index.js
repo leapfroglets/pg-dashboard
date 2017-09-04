@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
-import CreateDatabase from "../CreateDatabase";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
+import CreateDatabase from '../CreateDatabase';
 
 class Databases extends Component {
   constructor() {
@@ -14,7 +14,7 @@ class Databases extends Component {
     let data = {
       query:
         "select * FROM pg_database where datistemplate=false and datname!='postgres'",
-      dbname: "postgres"
+      dbname: 'postgres'
     };
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)

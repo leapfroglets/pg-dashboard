@@ -5,7 +5,7 @@ class Operations extends Component {
   render() {
     return (
       <div>
-         <CreateTable dbname={this.props.dbname}/> 
+        <CreateTable dbname={this.props.dbname} />
       </div>
     );
   }

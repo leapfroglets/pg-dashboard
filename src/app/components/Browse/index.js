@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
 
 class Browse extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class Browse extends Component {
   }
   retrieveResponse(props) {
     let data = {
-      query: "select * FROM " + props.table,
+      query: 'select * FROM ' + props.table,
       dbname: props.dbname
     };
     httpUtil

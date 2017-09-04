@@ -14,7 +14,7 @@ class Router extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/" render={(obj) => (<App obj={obj} />)}/>
+          <Route path="/" render={obj => <App obj={obj} />} />
         </div>
       </BrowserRouter>
     );
