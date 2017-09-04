@@ -25,7 +25,7 @@ class App extends Component {
   componentWillMount() {
     let data = {
       user: 'postgres',
-      password: '12345678'
+      password: 'nirmala'
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }

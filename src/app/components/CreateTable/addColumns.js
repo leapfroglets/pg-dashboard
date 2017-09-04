@@ -86,6 +86,8 @@ class AddColumns extends Component {
           error: ''
         });
         this.resetValues();
+        this.props.refresh();
+        this.props.refreshStructure();
         this.props.unmount();
       })
       .catch(err => {

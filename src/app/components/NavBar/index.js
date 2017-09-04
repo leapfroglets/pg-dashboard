@@ -7,6 +7,7 @@ import DatabaseOperations from '../DatabaseOperations';
 import TableOperations from '../TableOperations';
 import Databases from '../Databases';
 import TableStructure from '../TableStructure';
+import DatabaseStructure from '../DatabaseStructure';
 class NavBar extends Component {
   render() {
     return (
@@ -39,6 +40,16 @@ class NavBar extends Component {
                 to={`${this.props.match.url}tablestructure`}
               >
                 Table Structure
+              </NavLink>
+            </li>
+          ) : null}
+          {this.props.currDbname && this.props.currTable === null ? (
+            <li>
+              <NavLink
+                activeClassName="activeNav"
+                to={`${this.props.match.url}databasestructure`}
+              >
+                Database Structure
               </NavLink>
             </li>
           ) : null}
@@ -98,6 +109,15 @@ class NavBar extends Component {
             <TableStructure
               currDbname={this.props.currDbname}
               currTable={this.props.currTable}
+            />
+          )}
+        />
+        <Route
+          path={`${this.props.match.url}databasestructure`}
+          render={() => (
+            <DatabaseStructure
+              dbname={this.props.currDbname}
+              refresh={() => this.props.refresh()}
             />
           )}
         />

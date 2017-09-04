@@ -22,3 +22,10 @@ textarea{
 .activeNav{
   background: #D3D3D3 !important;
 }
+.react-confirm-alert > h1 {
+  font-size:24px;
+}
+
+.react-confirm-alert-overlay {
+  background: rgba(255, 255, 255, 0.3)!important;
+}
