@@ -12,7 +12,6 @@ class NavBreadCrumb extends Component {
   render() {
     return (
       <div>
-        {this.props.currDbname} {this.props.currTable}
         <ol className="breadcrumb">
           <li
             className="point size"
