@@ -66,7 +66,7 @@ class TableStructure extends Component {
           <div className="x_panel">
             <div className="reply">{this.state.reply}</div>
             <div>
-              <h2>Table Structuress</h2>
+              <h2>Table Structure</h2>
             </div>
             <div className="x_content">
               <table className="table table-striped">

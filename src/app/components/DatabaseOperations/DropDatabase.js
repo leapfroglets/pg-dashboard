@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 class DropDatabase extends Component {
   constructor() {
     super();
@@ -15,19 +16,35 @@ class DropDatabase extends Component {
       query: `drop database ${this.props.currDbname}`,
       dbname: 'postgres'
     };
-    httpUtil
-      .post(`http://localhost:4553/api/database/queries`, data)
-      .then(response => {
-        this.setState({
-          textBoxValue: '',
-          reply: response.data.reply,
-          error: ''
-        });
-      })
-      .then(() => this.props.refresh())
-      .catch(err => {
-        this.setState({ reply: '', error: err.response.data.error.message });
-      });
+    confirmAlert({
+          title:'Confirm drop action',
+          message:`Do you want to drop the database `,
+          confirmLabel:'drop',
+          cancelLabel:'cancel',
+          onConfirm:() => {
+            httpUtil
+            .post(`http://localhost:4553/api/database/queries`, data)
+            .then(response => {
+              this.setState({
+                textBoxValue: '',
+                reply: response.data.reply,
+                error: ''
+              });
+            })
+            .then(() => this.props.refresh())
+            .catch(err => {
+              this.setState({ reply: '', error: err.response.data.error.message });
+            });
+          },
+          onCancel:() => {
+            this.setState({
+              textBoxValue: '',
+              reply: 'drop action cancelled.',
+              error: ''
+            });
+          }
+        }) 
+    
   }
   render() {
     return (
