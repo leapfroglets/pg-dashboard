@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
 
 class DatabaseItem extends Component {
   constructor() {
@@ -20,6 +20,7 @@ class DatabaseItem extends Component {
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
       .then(response => {
+        console.log("tables",response.data);
         this.setState({
           tabList: response.data.reply.rows,
           isLoaded: true
@@ -29,24 +30,23 @@ class DatabaseItem extends Component {
   showTables() {
     let element = document.getElementById(this.props.dbname);
     if (this.state.plusIsNext) {
-      element.style.display = "block";
+      element.style.display = 'block';
       this.setState({
         plusIsNext: false
       });
     } else {
-      element.style.display = "none";
+      element.style.display = 'none';
       this.setState({
         plusIsNext: true
       });
     }
   }
   redirect(path) {
-    // console.log("dbitem",this.props.history);
     this.props.history.push(path);
   }
   render() {
     if (this.state.isLoaded === true) {
-      let sign = this.state.plusIsNext ? "+" : "-";
+      let sign = this.state.plusIsNext ? '+' : '-';
       return (
         <li key={this.props.dbname}>
           <button
@@ -59,7 +59,7 @@ class DatabaseItem extends Component {
           <a
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.redirect("/sqleditor");
+              this.redirect('/sqleditor');
             }}
           >
             <i className="fa fa-home" />
@@ -72,7 +72,7 @@ class DatabaseItem extends Component {
                   <a
                     onClick={() => {
                       this.props.onClick(this.props.dbname, table.table_name);
-                      this.redirect("/browse");
+                      this.redirect('/browse');
                     }}
                   >
                     {table.table_name}

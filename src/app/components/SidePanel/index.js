@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import DatabaseList from "./databaseList";
-import "./style.css";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import DatabaseList from './databaseList';
+import './style.css';
+import { NavLink } from 'react-router-dom';
 
 class SidePanel extends Component {
   render() {

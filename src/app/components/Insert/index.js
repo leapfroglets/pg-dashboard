@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
 
 class Insert extends Component {
   constructor() {
@@ -7,8 +7,8 @@ class Insert extends Component {
     this.state = {
       fields: [],
       textBoxValue: {},
-      reply: "",
-      error: ""
+      reply: '',
+      error: ''
     };
     this.obj = {};
   }
@@ -27,21 +27,21 @@ class Insert extends Component {
       });
   }
   insertData() {
-    let columns = "";
-    let values = "";
-    let value = "";
+    let columns = '';
+    let values = '';
+    let value = '';
     let regex = /^[0-9]*$/;
     let emptyObject = {};
     this.state.fields.map(field => {
-      columns = columns + field.column_name + ",";
+      columns = columns + field.column_name + ',';
       value = this.state.textBoxValue[field.column_name]
         ? this.state.textBoxValue[field.column_name]
-        : "null";
+        : 'null';
       values =
-        value.match(regex) || value === "null"
-          ? values + value + ","
-          : values + `'` + value + `'` + ",";
-      emptyObject[field.column_name] = "";
+        value.match(regex) || value === 'null'
+          ? values + value + ','
+          : values + `'` + value + `'` + ',';
+      emptyObject[field.column_name] = '';
     });
     columns = columns.slice(0, columns.length - 1);
     values = values.slice(0, values.length - 1);
@@ -55,11 +55,12 @@ class Insert extends Component {
         this.setState({
           textBoxValue: emptyObject,
           reply: response.data.reply,
-          error: ""
+          error: ''
         });
+        this.obj = {};
       })
       .catch(err => {
-        this.setState({ reply: "", error: err.response.data.error.message });
+        this.setState({ reply: '', error: err.response.data.error.message });
       });
   }
 
@@ -91,7 +92,7 @@ class Insert extends Component {
                         this.state.textBoxValue[field.column_name] ? (
                           this.state.textBoxValue[field.column_name]
                         ) : (
-                          ""
+                          ''
                         )
                       }
                       onChange={e => {
