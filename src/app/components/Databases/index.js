@@ -45,7 +45,7 @@ class Databases extends Component {
             })}
           </tbody>
         </table>
-        <CreateDatabase />
+        <CreateDatabase refresh={() => this.props.refresh()} />
       </div>
     );
   }
