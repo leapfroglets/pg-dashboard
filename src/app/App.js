@@ -25,12 +25,13 @@ class App extends Component {
   componentWillMount() {
     let data = {
       user: "postgres",
-      password: "12345678"
+      password: "nirmala"
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }
 
   render() {
+    console.log("app",this.props)
     return (
       <div className="App">
         <div className="col-md-3 left-container">
@@ -39,7 +40,7 @@ class App extends Component {
               this.handleClick(dbname, table);
             }}
             ref="side"
-            history={this.props.history}
+            history={this.props.obj.history}
           />
         </div>
         <div className="col-md-9 right-container">
@@ -50,7 +51,7 @@ class App extends Component {
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
-            match={this.props.match}
+            match={this.props.obj.match}
             refresh={() => this.refs.side.refreshSidePanel()}
           />
         </div>

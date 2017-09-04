@@ -10,6 +10,7 @@ import TableStructure from '../TableStructure';
 
 class NavBar extends Component {
   render() {
+    console.log("navbar",this.props.match.url)
     return (
       <div>
         <ul className="nav nav-tabs bar_tabs">
