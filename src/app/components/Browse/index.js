@@ -24,7 +24,7 @@ class Browse extends Component {
         });
       });
   }
-  
+
   componentWillMount() {
     this.setState({
       entries: []

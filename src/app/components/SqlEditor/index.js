@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import SqlResult from "./SqlResult";
-import "./style.css";
+import React, { Component } from 'react';
+import SqlResult from './SqlResult';
+import './style.css';
 class SqlEditor extends Component {
   constructor() {
     super();
@@ -36,7 +36,7 @@ class SqlEditor extends Component {
               type="button"
               value="execute"
               onClick={() => {
-                this.executeQuery(document.getElementById("textInput").value);
+                this.executeQuery(document.getElementById('textInput').value);
               }}
             />
           </div>
@@ -52,8 +52,8 @@ class SqlEditor extends Component {
                   <SqlResult
                     currDbname={this.props.currDbname}
                     query={q.trim()}
-                    key={i + "q2"}
-                    refresh={()=>this.props.refresh()}
+                    key={i + 'q2'}
+                    refresh={() => this.props.refresh()}
                   />
                 </div>
               );

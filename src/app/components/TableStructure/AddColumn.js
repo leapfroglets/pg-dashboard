@@ -5,28 +5,27 @@ class AddColumn extends Component {
     super();
     this.state = {
       errorMsg: '',
-      colLengthVisible:true
+      colLengthVisible: true
     };
     this.addColumn = this.addColumn.bind(this);
-    this.checkDataType=this.checkDataType.bind(this);
+    this.checkDataType = this.checkDataType.bind(this);
   }
-  checkDataType(e){
+  checkDataType(e) {
     console.log(e.target.value);
-    let colLength=document.getElementById('tbLength');
-    if(e.target.value==='int'){      
-      colLength.value='';
-      this.setState({colLengthVisible:false});
-    }
-    else{
-      this.setState({colLengthVisible:true});
+    let colLength = document.getElementById('tbLength');
+    if (e.target.value === 'int') {
+      colLength.value = '';
+      this.setState({ colLengthVisible: false });
+    } else {
+      this.setState({ colLengthVisible: true });
     }
   }
   addColumn() {
     let colName = document.getElementById('tbName').value;
     let colType = document.getElementById('ddDatatype').value;
     let colNull = document.getElementById('ddIsNull').value;
-    let colLength='';
-    if(this.state.colLengthVisible) 
+    let colLength = '';
+    if (this.state.colLengthVisible)
       colLength = document.getElementById('tbLength').value;
     if (colName.trim() === '') {
       this.setState({ errorMsg: 'Please specific the column Name' });
@@ -35,9 +34,8 @@ class AddColumn extends Component {
 
     if (colNull === 'NO') colNull = 'not null';
     else colNull = '';
-    if(this.state.colLengthVisible)
-    if (colLength.trim() !== '') 
-      colLength = `(${colLength})`;
+    if (this.state.colLengthVisible)
+      if (colLength.trim() !== '') colLength = `(${colLength})`;
     this.setState({ errorMsg: '' });
     console.log(
       `alter table ${this.props
@@ -80,7 +78,11 @@ class AddColumn extends Component {
                 />
               </td>
               <td>
-                <select className="form-control" id="ddDatatype" onChange={(e)=>this.checkDataType(e)}>
+                <select
+                  className="form-control"
+                  id="ddDatatype"
+                  onChange={e => this.checkDataType(e)}
+                >
                   <option value="varchar">varchar</option>
                   <option value="int">int</option>
                   <option value="float">float</option>
@@ -92,14 +94,15 @@ class AddColumn extends Component {
                   <option value="NO">NO</option>
                 </select>
               </td>
-              {this.state.colLengthVisible &&
-              <td>
-                <input
-                  className="form-control text-input"
-                  placeholder="Length"
-                  id="tbLength"
-                />
-              </td>}
+              {this.state.colLengthVisible && (
+                <td>
+                  <input
+                    className="form-control text-input"
+                    placeholder="Length"
+                    id="tbLength"
+                  />
+                </td>
+              )}
             </tr>
           </tbody>
         </table>

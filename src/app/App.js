@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import SqlEditor from "./components/SqlEditor";
-import SidePanel from "./components/SidePanel";
-import NavBar from "./components/NavBar";
-import NavBreadCrumb from "./components/NavBreadCrumb";
-import * as httpUtil from "./httpUtil";
+import React, { Component } from 'react';
+import SqlEditor from './components/SqlEditor';
+import SidePanel from './components/SidePanel';
+import NavBar from './components/NavBar';
+import NavBreadCrumb from './components/NavBreadCrumb';
+import * as httpUtil from './httpUtil';
 
 class App extends Component {
   constructor() {
@@ -24,8 +24,8 @@ class App extends Component {
 
   componentWillMount() {
     let data = {
-      user: "postgres",
-      password: "12345678"
+      user: 'postgres',
+      password: '12345678'
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }

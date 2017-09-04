@@ -14,7 +14,7 @@ class DatabaseList extends Component {
     let data = {
       query:
         "select * FROM pg_database where datistemplate=false and datname!='postgres'",
-      dbname: "postgres"
+      dbname: 'postgres'
     };
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
@@ -26,7 +26,7 @@ class DatabaseList extends Component {
       })
       .then(() => {
         for (let i = 0; i < Object.keys(this.refs).length; i++)
-          this.refs["child" + i].refreshDataItem();
+          this.refs['child' + i].refreshDataItem();
       });
   }
   componentWillMount() {
