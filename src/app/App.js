@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import SqlEditor from "./components/SqlEditor";
-import SidePanel from "./components/SidePanel";
-import NavBar from "./components/NavBar";
-import * as httpUtil from "./httpUtil";
+import React, { Component } from 'react';
+import SqlEditor from './components/SqlEditor';
+import SidePanel from './components/SidePanel';
+import NavBar from './components/NavBar';
+import * as httpUtil from './httpUtil';
+import NavBreadCrumb from './components/NavBreadCrumb';
 
 class App extends Component {
   constructor() {
@@ -23,8 +24,8 @@ class App extends Component {
 
   componentWillMount() {
     let data = {
-      user: "postgres",
-      password: "nirmala"
+      user: 'postgres',
+      password: 'nirmala'
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }
@@ -37,14 +38,18 @@ class App extends Component {
             onClick={(dbname, table) => {
               this.handleClick(dbname, table);
             }}
-            history={this.props.history}
+            history={this.props.obj.history}
           />
         </div>
         <div className="col-md-9 right-container">
+          <NavBreadCrumb
+            currDbname={this.state.currDbname}
+            currTable={this.state.currTable}
+          />
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
-            match={this.props.match}
+            match={this.props.obj.match}
           />
         </div>
       </div>

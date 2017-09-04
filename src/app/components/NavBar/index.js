@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Route, NavLink } from "react-router-dom";
-import SqlEditor from "../SqlEditor";
-import Browse from "../Browse";
-import Insert from "../Insert";
-import Operations from "../Operations";
-import Databases from "../Databases";
+import React, { Component } from 'react';
+import { Route, NavLink } from 'react-router-dom';
+import SqlEditor from '../SqlEditor';
+import Browse from '../Browse';
+import Insert from '../Insert';
+import Operations from '../Operations';
+import Databases from '../Databases';
 
 class NavBar extends Component {
   render() {
@@ -86,7 +86,12 @@ class NavBar extends Component {
         />
         <Route
           path={`${this.props.match.url}operations`}
-          component={Operations}
+          render={() => (
+            <Operations
+              dbname={this.props.currDbname}
+              table={this.props.currTable}
+            />
+          )}
         />
         <Route
           path={`${this.props.match.url}databases`}
