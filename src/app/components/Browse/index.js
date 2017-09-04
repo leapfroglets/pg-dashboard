@@ -6,7 +6,8 @@ class Browse extends Component {
     super();
     this.state = {
       entries: [],
-      isLoaded: false
+      isLoaded: false,
+      cellNo:null
     };
     this.retrieveResponse = this.retrieveResponse.bind(this);
   }
@@ -44,6 +45,12 @@ class Browse extends Component {
     }
   }
 
+  setCellNo(i){
+    this.setState({
+      cellNo:i
+    })
+  }
+
   render() {
     if (this.state.isLoaded === true) {
       return (
@@ -63,8 +70,16 @@ class Browse extends Component {
               {this.state.entries.rows.map((entry, i) => {
                 return (
                   <tr key={i}>
-                    {this.state.entries.fields.map((field, i) => {
-                      return <td key={i}>{entry[field.name]}</td>;
+                    {this.state.entries.fields.map((field, j) => {
+                      let temp = i.toString()+j.toString()
+                      return(
+                        <td
+                          key={j}
+                          onClick={() => {this.setCellNo(temp)}}
+                        >
+                          {(this.state.cellNo===temp) ? <input type='text'/> : entry[field.name]}
+                        </td>
+                      );
                     })}
                   </tr>
                 );
