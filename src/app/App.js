@@ -52,6 +52,10 @@ class App extends Component {
             currTable={this.state.currTable}
             match={this.props.obj.match}
             refresh={() => this.refs.side.refreshSidePanel()}
+            onClick={(dbname, table) => {
+              this.handleClick(dbname, table);
+            }}
+            history={this.props.obj.history}
           />
         </div>
       </div>

@@ -118,6 +118,10 @@ class NavBar extends Component {
             <DatabaseStructure
               dbname={this.props.currDbname}
               refresh={() => this.props.refresh()}
+              onClick={(dbname, table) => {
+                this.props.onClick(dbname, table);
+              }}
+              history={this.props.history}
             />
           )}
         />
