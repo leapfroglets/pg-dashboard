@@ -22,8 +22,8 @@ class SqlResult extends Component {
       httpUtil
         .post(`http://localhost:4553/api/database/queries`, data)
         .then(response => {
-          if (response.data.reply.hasOwnProperty('rows'))
-            this.setState({ result: response.data, error: '', update: '' });
+          if (response.data.reply.hasOwnProperty("rows"))
+            this.setState({ result: response.data, error: "", update: "" });
           else
             this.setState({
               result: [],
@@ -31,13 +31,14 @@ class SqlResult extends Component {
               update: response.data.reply
             });
         })
+        .then(()=>this.props.refresh())
         .catch(err => {
           if (err.response) {
             this.setState({
               result: [],
-              update: '',
+              update: "",
               error:
-                'error in operation.' +
+                "error in operation." +
                 err.response.data.error.message.toString()
             });
           }
@@ -64,7 +65,7 @@ class SqlResult extends Component {
             </thead>
             <tbody>
               {this.state.result.reply === undefined ? (
-                ''
+                ""
               ) : (
                 this.state.result.reply.rows.map((row, i) => {
                   return (

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
-
-class CreateDatabase extends Component {
+class RenameDatabase extends Component {
   constructor() {
     super();
     this.state = {
@@ -9,11 +8,13 @@ class CreateDatabase extends Component {
       reply: '',
       error: ''
     };
+    this.renameDatabase = this.renameDatabase.bind(this);
   }
-  createDatabase() {
+  renameDatabase() {
     if (this.state.textBoxValue !== '') {
       let data = {
-        query: `create database ${this.state.textBoxValue}`,
+        query: `alter database ${this.props.currDbname} rename to ${this.state
+          .textBoxValue};`,
         dbname: 'postgres'
       };
       httpUtil
@@ -25,6 +26,7 @@ class CreateDatabase extends Component {
             error: ''
           });
         })
+        .then(() => this.props.refresh())
         .catch(err => {
           this.setState({ reply: '', error: err.response.data.error.message });
         });
@@ -34,7 +36,7 @@ class CreateDatabase extends Component {
     return (
       <div className="col-md-4">
         <div className="x_panel">
-          <div className="x_title">Create Database</div>
+          <div className="x_title">Rename {this.props.currDbname} to</div>
           <div>
             <input
               type="text"
@@ -51,13 +53,12 @@ class CreateDatabase extends Component {
           <input
             type="button"
             className="btn btn-round btn-default"
-            value="Create"
-            onClick={() => this.createDatabase()}
+            value="Rename"
+            onClick={() => this.renameDatabase()}
           />
         </div>
       </div>
     );
   }
 }
-
-export default CreateDatabase;
+export default RenameDatabase;

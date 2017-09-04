@@ -9,8 +9,23 @@ class DatabaseItem extends Component {
       plusIsNext: true,
       isLoaded: false
     };
+    this.refreshDataItem = this.refreshDataItem.bind(this);
   }
-
+  refreshDataItem() {
+    let data = {
+      query:
+        "select * FROM information_schema.tables WHERE table_schema='public'",
+      dbname: this.props.dbname
+    };
+    httpUtil
+      .post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          tabList: response.data.reply.rows,
+          isLoaded: true
+        });
+      });
+  }
   componentWillMount() {
     let data = {
       query:

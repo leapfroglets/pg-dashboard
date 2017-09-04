@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
-
-class CreateDatabase extends Component {
+class TableCopy extends Component {
   constructor() {
     super();
     this.state = {
@@ -10,11 +9,12 @@ class CreateDatabase extends Component {
       error: ''
     };
   }
-  createDatabase() {
+  renameTable() {
     if (this.state.textBoxValue !== '') {
       let data = {
-        query: `create database ${this.state.textBoxValue}`,
-        dbname: 'postgres'
+        query: `create table ${this.state.textBoxValue} as select * from ${this
+          .props.currTable};`,
+        dbname: this.props.currDbname
       };
       httpUtil
         .post(`http://localhost:4553/api/database/queries`, data)
@@ -25,6 +25,7 @@ class CreateDatabase extends Component {
             error: ''
           });
         })
+        .then(() => this.props.refresh())
         .catch(err => {
           this.setState({ reply: '', error: err.response.data.error.message });
         });
@@ -34,13 +35,12 @@ class CreateDatabase extends Component {
     return (
       <div className="col-md-4">
         <div className="x_panel">
-          <div className="x_title">Create Database</div>
+          <div className="x_title">Copy {this.props.currTable} to</div>
           <div>
             <input
               type="text"
               className="form-control"
-              id="dbName"
-              placeholder="New Database"
+              placeholder="New Table Name"
               value={this.state.textBoxValue}
               onChange={e => this.setState({ textBoxValue: e.target.value })}
             />
@@ -51,13 +51,12 @@ class CreateDatabase extends Component {
           <input
             type="button"
             className="btn btn-round btn-default"
-            value="Create"
-            onClick={() => this.createDatabase()}
+            value="Copy"
+            onClick={() => this.renameTable()}
           />
         </div>
       </div>
     );
   }
 }
-
-export default CreateDatabase;
+export default TableCopy;
