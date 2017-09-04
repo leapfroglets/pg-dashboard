@@ -7,8 +7,6 @@ import DatabaseOperations from '../DatabaseOperations';
 import TableOperations from '../TableOperations';
 import Databases from '../Databases';
 import TableStructure from '../TableStructure';
-import CreateTable from '../CreateTable';
-
 class NavBar extends Component {
   render() {
     return (
@@ -81,16 +79,6 @@ class NavBar extends Component {
                 to={`${this.props.match.url}databaseoperations`}
               >
                 Database Operations
-              </NavLink>
-            </li>
-          ) : null}
-          {this.props.currDbname && this.props.currTable === null ? (
-            <li>
-              <NavLink
-                activeClassName="activeNav"
-                to={`${this.props.match.url}createtable`}
-              >
-                Create Table
               </NavLink>
             </li>
           ) : null}
