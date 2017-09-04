@@ -23,7 +23,7 @@ class SidePanel extends Component {
         >
           <NavLink to="/databases">
             <img src="images/logo2.png" alt="logo" className="logo" />
-            <span className="pg-title">PG admin</span>
+            <span className="pg-title">PG Dashboard</span>
           </NavLink>
         </div>
 
