@@ -1,32 +1,32 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
 
 class CreateDatabase extends Component {
   constructor() {
     super();
     this.state = {
-      textBoxValue: "",
-      reply: "",
-      error: ""
+      textBoxValue: '',
+      reply: '',
+      error: ''
     };
   }
   createDatabase() {
-    if (this.state.textBoxValue !== "") {
+    if (this.state.textBoxValue !== '') {
       let data = {
         query: `create database ${this.state.textBoxValue}`,
-        dbname: "postgres"
+        dbname: 'postgres'
       };
       httpUtil
         .post(`http://localhost:4553/api/database/queries`, data)
         .then(response => {
           this.setState({
-            textBoxValue: "",
+            textBoxValue: '',
             reply: response.data.reply,
-            error: ""
+            error: ''
           });
         })
         .catch(err => {
-          this.setState({ reply: "", error: err.response.data.error.message });
+          this.setState({ reply: '', error: err.response.data.error.message });
         });
     }
   }
