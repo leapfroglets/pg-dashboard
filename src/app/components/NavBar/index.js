@@ -50,7 +50,7 @@ class NavBar extends Component {
                 activeClassName="activeNav"
                 to={`${this.props.match.url}databasestructure`}
               >
-                Database Strucutre
+                Database Structure
               </NavLink>
             </li>
           ) : null}
