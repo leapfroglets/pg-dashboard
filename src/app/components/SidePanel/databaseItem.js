@@ -35,7 +35,6 @@ class DatabaseItem extends Component {
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
       .then(response => {
-        console.log('tables', response.data);
         this.setState({
           tabList: response.data.reply.rows,
           isLoaded: true
