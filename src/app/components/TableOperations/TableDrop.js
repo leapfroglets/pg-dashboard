@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import { confirmAlert } from 'react-confirm-alert';
 class TableDrop extends Component {
   constructor() {
     super();

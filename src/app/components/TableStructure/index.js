@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
 import ChangeColumn from './ChangeColumn';
 import AddColumn from './AddColumn';
+import { confirmAlert } from 'react-confirm-alert';
 import './style.css';
 class TableStructure extends Component {
   constructor() {
@@ -19,19 +20,28 @@ class TableStructure extends Component {
     this.setShowAdd = this.setShowAdd.bind(this);
   }
   dropColumn(columnName) {
-    console.log(
-      `alter table ${this.props.currTable} drop column ${columnName}`
-    );
     let data = {
       query: `alter table ${this.props.currTable} drop column ${columnName}`,
       dbname: this.props.currDbname
     };
-    httpUtil
-      .post(`http://localhost:4553/api/database/queries`, data)
-      .then(response => {
-        this.setState({ reply: response.data.reply });
-      })
-      .then(this.getResult());
+    confirmAlert({
+      title: 'Confirm drop action',
+      message: 'Do you want to drop this column',
+      confirmLabel: 'drop',
+      cancelLabel: 'cancel',
+      onConfirm: () => {
+        httpUtil
+        .post(`http://localhost:4553/api/database/queries`, data)
+        .then(response => {
+          this.setState({ reply: response.data.reply });
+        })
+        .then(this.getResult());
+      },
+      onCancel: () => {
+        this.setState({ reply:'drop action cancelled' });
+      }
+    });
+    
   }
   setShowChange(value) {
     this.setState({ showChange: value });
