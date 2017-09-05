@@ -11,24 +11,41 @@ class DatabaseStructure extends Component{
       tables:[],
       isLoaded:false,
       reply:'',
-      error:''
+      error:'',
+      dbname:''
     };
+    this.retrieveResponse = this.retrieveResponse.bind(this);
   }
-  componentWillMount(){
+
+  retrieveResponse(props){
     let data = {
       query:`select * FROM information_schema.tables WHERE table_schema='public'`,
-      dbname:this.props.dbname
+      dbname:props.dbname
     }
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
       .then(response => {
         this.setState({
           tables:response.data.reply.rows,
-          isLoaded:true
+          isLoaded:true,
+          dbname:props.dbname
         })
       })
   }
+  componentWillMount(){
+    if(this.props.dbname){
+      this.retrieveResponse(this.props);
+    }
+  }
   
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      isLoaded:false
+    })
+    if(nextProps.dbname){
+      this.retrieveResponse(nextProps);
+    }
+  }
   refreshStructure(){
     let data = {
       query:`select * FROM information_schema.tables WHERE table_schema='public'`,
@@ -101,7 +118,14 @@ class DatabaseStructure extends Component{
                 this.state.tables.map(table => {
                   return(
                     <tr key={table.table_name}>
-                      <td>{table.table_name}</td>
+                      <td
+                        onClick={() =>{
+                          this.props.onClick(this.state.dbname,table.table_name);
+                          this.props.history.push('/browse');
+                        }}
+                      >
+                        {table.table_name}
+                      </td>
                       <td><input type="button" value="drop" onClick={() => {this.dropTable(table.table_name)}}/></td>
                     </tr>
                   );

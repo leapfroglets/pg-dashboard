@@ -74,7 +74,7 @@ class DatabaseItem extends Component {
           <a
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.redirect('/sqleditor');
+              this.redirect('/databasestructure');
             }}
           >
             <i className="fa fa-home" />
