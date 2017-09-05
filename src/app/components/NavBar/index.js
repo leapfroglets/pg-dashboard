@@ -8,7 +8,6 @@ import TableOperations from '../TableOperations';
 import Databases from '../Databases';
 import TableStructure from '../TableStructure';
 import DatabaseStructure from '../DatabaseStructure';
-
 class NavBar extends Component {
   render() {
     return (
@@ -119,6 +118,10 @@ class NavBar extends Component {
             <DatabaseStructure
               dbname={this.props.currDbname}
               refresh={() => this.props.refresh()}
+              onClick={(dbname, table) => {
+                this.props.onClick(dbname, table);
+              }}
+              history={this.props.history}
             />
           )}
         />
@@ -162,8 +165,9 @@ class NavBar extends Component {
         />
         <Route
           path={`${this.props.match.url}databases`}
-          component={Databases}
+          component={()=><Databases refresh={() => this.props.refresh()}/>}
         />
+
       </div>
     );
   }

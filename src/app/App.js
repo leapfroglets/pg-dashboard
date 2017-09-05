@@ -15,7 +15,6 @@ class App extends Component {
   }
 
   handleClick(dbName, table) {
-    // console.log(dbName,table);
     this.setState({
       currDbname: dbName,
       currTable: table
@@ -25,7 +24,7 @@ class App extends Component {
   componentWillMount() {
     let data = {
       user: 'postgres',
-      password: 'nirmala'
+      password: '12345678'
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }
@@ -46,12 +45,20 @@ class App extends Component {
           <NavBreadCrumb
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
+            onClick={(dbname, table) => {
+              this.handleClick(dbname, table);
+            }}
+            history={this.props.obj.history}
           />
           <NavBar
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
             match={this.props.obj.match}
             refresh={() => this.refs.side.refreshSidePanel()}
+            onClick={(dbname, table) => {
+              this.handleClick(dbname, table);
+            }}
+            history={this.props.obj.history}
           />
         </div>
       </div>
