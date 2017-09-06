@@ -21,13 +21,13 @@ class App extends Component {
     });
   }
 
-  componentWillMount() {
-    let data = {
-      user: 'postgres',
-      password: 'nirmala'
-    };
-    httpUtil.post(`http://localhost:4553/api/database/login`, data);
-  }
+  // componentWillMount() {
+  //   let data = {
+  //     user: 'postgres',
+  //     password: 'nirmala'
+  //   };
+  //   httpUtil.post(`http://localhost:4553/api/database/login`, data);
+  // }
 
   render() {console.log(this.props)
     return (
@@ -45,6 +45,7 @@ class App extends Component {
           <NavBreadCrumb
             currDbname={this.state.currDbname}
             currTable={this.state.currTable}
+            match={this.props.obj.match}
             onClick={(dbname, table) => {
               this.handleClick(dbname, table);
             }}

@@ -26,12 +26,7 @@ class DatabaseItem extends Component {
         });
       });
   }
-<<<<<<< HEAD
   componentWillMount() {
-=======
-
-  componentWillMount() {console.log('response')
->>>>>>> 892f80cc84ba4404800bdd8fca1dcf70bd092c9e
     let data = {
       query:
         "select * FROM information_schema.tables WHERE table_schema='public'",
@@ -78,7 +73,7 @@ class DatabaseItem extends Component {
           <a
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.redirect('/database/databasestructure');
+              this.redirect('/dashboard/databasestructure');
             }}
           >
             <i className="fa fa-home" />
@@ -91,7 +86,7 @@ class DatabaseItem extends Component {
                   <a
                     onClick={() => {
                       this.props.onClick(this.props.dbname, table.table_name);
-                      this.redirect("/database/browse");
+                      this.redirect("/dashboard/browse");
                     }}
                   >
                     {table.table_name}

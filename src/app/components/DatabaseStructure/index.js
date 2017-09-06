@@ -121,7 +121,7 @@ class DatabaseStructure extends Component{
                       <td
                         onClick={() =>{
                           this.props.onClick(this.state.dbname,table.table_name);
-                          this.props.history.push('/browse');
+                          this.props.history.push(`${this.props.match.url}/browse`);
                         }}
                         className="point"
                       >

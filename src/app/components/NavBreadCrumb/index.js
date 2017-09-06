@@ -17,7 +17,7 @@ class NavBreadCrumb extends Component {
             className="point size"
             onClick={() => {
               this.props.onClick(null, null);
-              this.redirect('/databases');
+              this.redirect(`${this.props.match.url}/databases`);
             }}
           >
             {window.location.href.split('/')[2]}
@@ -27,7 +27,7 @@ class NavBreadCrumb extends Component {
               className="point size"
               onClick={() => {
                 this.props.onClick(this.props.currDbname, null);
-                this.redirect('/databasestructure');
+                this.redirect(`${this.props.match.url}/databasestructure`);
               }}
             >
               {this.props.currDbname}

@@ -22,8 +22,8 @@ class SidePanel extends Component {
             this.props.onClick(null, null);
           }}
         >
-          <NavLink to="/database/databases">
-            <img src="images/logo2.png" alt="logo" className="logo" />
+          <NavLink to="/dashboard/databases">
+            <img src="/images/logo2.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
           </NavLink>
         </div>

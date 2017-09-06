@@ -24,7 +24,7 @@ class Login extends Component{
       httpUtil.post('http://localhost:4553/api/database/login',data)
       .then(res => {        
         this.props.changeState();      console.log(this.props.history);
-        this.props.history.push('/database');
+        this.props.history.push('/dashboard');
       })
       .catch(err => {
         let error = err.response.data.error.message;

@@ -28,9 +28,16 @@ class Router extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/database" render={obj => <App obj={obj} />} />
-          <Route exact path="/" render={({history})=>(<Login changeState={()=>{this.changeState()}} history={history}/>)} />
-          {/* <Route path="/database" component={App}/> */}
+          <Route
+            path="/dashboard"
+            render={obj => <App obj={obj} />} 
+          />
+          <Route
+            exact path="/"
+            render={({history})=>(
+              <Login changeState={()=>{this.changeState()}} history={history}/>
+            )} 
+          />
         </div>
       </BrowserRouter>
     );
