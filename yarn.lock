@@ -3336,7 +3336,11 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
+<<<<<<< HEAD
 invariant@^2.2.1, invariant@^2.2.2:
+=======
+invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+>>>>>>> 892f80cc84ba4404800bdd8fca1dcf70bd092c9e
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -5526,7 +5530,11 @@ react-error-overlay@^1.0.10:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+<<<<<<< HEAD
 react-router-dom@^4.1.2:
+=======
+react-router-dom@^4.2.2:
+>>>>>>> 892f80cc84ba4404800bdd8fca1dcf70bd092c9e
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"
   dependencies:

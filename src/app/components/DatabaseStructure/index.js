@@ -121,13 +121,13 @@ class DatabaseStructure extends Component{
                       <td
                         onClick={() =>{
                           this.props.onClick(this.state.dbname,table.table_name);
-                          this.props.history.push('/browse');
+                          this.props.history.push(`${this.props.match.url}/browse`);
                         }}
                         className="point"
                       >
                         {table.table_name}
                       </td>
-                      <td><input type="button" value="drop" onClick={() => {this.dropTable(table.table_name)}}/></td>
+                      <td><input type="button"  className="btn btn-round btn-sm btn-default" value="drop" onClick={() => {this.dropTable(table.table_name)}}/></td>
                     </tr>
                   );
                 })

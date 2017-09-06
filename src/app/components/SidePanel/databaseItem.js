@@ -73,20 +73,20 @@ class DatabaseItem extends Component {
           <a
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.redirect('/databasestructure');
+              this.redirect('/dashboard/databasestructure');
             }}
           >
             <i className="fa fa-home" />
             {this.props.dbname}
           </a>
-          <ul id={this.props.dbname} className="nav child_menu">
+          <ul className="table-list" id={this.props.dbname}>
             {this.state.tabList.map(table => {
               return (
                 <li key={table.table_name}>
                   <a
                     onClick={() => {
                       this.props.onClick(this.props.dbname, table.table_name);
-                      this.redirect('/browse');
+                      this.redirect("/dashboard/browse");
                     }}
                   >
                     {table.table_name}

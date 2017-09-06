@@ -39,7 +39,14 @@ class Databases extends Component {
             {this.state.dbList.map(db => {
               return (
                 <tr key={db.datname}>
-                  <td>{db.datname}</td>
+                  <td 
+                    onClick={() => {
+                      this.props.onClick(db.datname, null);
+                      this.props.history.push(`${this.props.match.url}/databasestructure`);
+                    }}
+                  >
+                    {db.datname}
+                  </td>
                 </tr>
               );
             })}

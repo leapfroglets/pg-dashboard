@@ -12,30 +12,31 @@ class SidePanel extends Component {
     this.refs.child1.refreshDatabaseList();
   }
   render() {
+    console.log("here")
     return (
-      <div className="left_col scroll-view">
+      <div className="">
         <div
-          className="navbar nav_title"
+          className=""
           style={{ border: 0 }}
           onClick={() => {
             this.props.onClick(null, null);
           }}
         >
-          <NavLink to="/databases">
-            <img src="images/logo2.png" alt="logo" className="logo" />
+          <NavLink to="/dashboard/databases">
+            <img src="/images/logo2.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
           </NavLink>
         </div>
 
-        <div className="clearfix" />
+        {/* <div className="clearfix" /> */}
 
-        <br />
+        {/* <br /> */}
 
         <div
-          id="sidebar-menu"
-          className="main_menu_side hidden-print main_menu"
+          id=""
+          className=""
         >
-          <div className="menu_section">
+          <div className="">
             <h3>Databases</h3>
             <DatabaseList
               ref="child1"
