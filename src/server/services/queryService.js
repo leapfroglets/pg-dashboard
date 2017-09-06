@@ -112,6 +112,12 @@ export function queryCall(query , dbConfig){
           message:err
         }
       }
+      else if(errorElement == 'column'){
+        error={
+          status:400,
+          message:err
+        }
+      }
       errorElement = err.split(' ')[0];
       if(errorElement == 'Please'){console.log(errorElement);
         error={
