@@ -12,6 +12,35 @@ class SqlEditor extends Component {
     };
     this.options = { lineNumbers: true, mode: 'text/x-pgsql' };
     this.executeQuery = this.executeQuery.bind(this);
+    this.saveSql = this.saveSql.bind(this);
+    this.destroyClickedElement = this.destroyClickedElement.bind(this);
+  }
+  saveSql() {
+    let textToWrite =
+      `--Created Date :${new Date()}\n --Database :${this.props.currDbname}\n\n` +
+      this.refs.editor.getCodeMirror().getValue();
+    let textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+    let fileNameToSaveAs = 'codeOfSql.sql';
+
+    let downloadLink = document.createElement('a');
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = 'Download File';
+    if (window.webkitURL != null) {
+      // Chrome allows the link to be clicked without actually adding it to the DOM.
+      downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+      // Firefox requires the link to be added to the DOM before it can be clicked.
+      downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+      // downloadLink.onclick = this.destroyClickedElement;
+      downloadLink.style.display = 'none';
+      document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+  }
+  destroyClickedElement(event) {
+    // remove the link from the DOM
+    document.body.removeChild(event.target);
   }
   componentDidMount() {
     if (this.props.currDbname !== null) {
@@ -53,6 +82,14 @@ class SqlEditor extends Component {
                 value="execute"
                 onClick={() => {
                   this.executeQuery();
+                }}
+              />
+              <input
+                className="btn btn-round btn-default"
+                type="button"
+                value="save SQL"
+                onClick={() => {
+                  this.saveSql();
                 }}
               />
             </div>
