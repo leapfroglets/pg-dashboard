@@ -5,6 +5,7 @@ import TableDrop from './TableDrop';
 class TableOperations extends Component {
   render() {
     return (
+      this.props.currTable!==null &&
       <div>
         <TableRename
           currDbname={this.props.currDbname}

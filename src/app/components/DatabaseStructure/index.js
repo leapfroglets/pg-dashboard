@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as httpUtil from '../../httpUtil';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import  { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import CreateTable from '../CreateTable';
 
@@ -123,6 +123,7 @@ class DatabaseStructure extends Component{
                           this.props.onClick(this.state.dbname,table.table_name);
                           this.props.history.push('/browse');
                         }}
+                        className="point"
                       >
                         {table.table_name}
                       </td>
