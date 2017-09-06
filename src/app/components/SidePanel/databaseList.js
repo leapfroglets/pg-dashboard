@@ -48,7 +48,7 @@ class DatabaseList extends Component {
   render() {
     if (this.state.isLoaded === true) {
       return (
-        <ul className="nav side-menu">
+        <ul className="">
           {this.state.dbList.map((dbInfo, i) => {
             return (
               <DatabaseItem

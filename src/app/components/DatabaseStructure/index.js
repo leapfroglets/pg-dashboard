@@ -127,7 +127,7 @@ class DatabaseStructure extends Component{
                       >
                         {table.table_name}
                       </td>
-                      <td><input type="button" value="drop" onClick={() => {this.dropTable(table.table_name)}}/></td>
+                      <td><input type="button"  className="btn btn-round btn-sm btn-default" value="drop" onClick={() => {this.dropTable(table.table_name)}}/></td>
                     </tr>
                   );
                 })

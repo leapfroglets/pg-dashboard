@@ -79,7 +79,7 @@ class DatabaseItem extends Component {
             <i className="fa fa-home" />
             {this.props.dbname}
           </a>
-          <ul id={this.props.dbname} className="nav child_menu">
+          <ul className="table-list" id={this.props.dbname}>
             {this.state.tabList.map(table => {
               return (
                 <li key={table.table_name}>
