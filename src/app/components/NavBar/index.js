@@ -17,7 +17,7 @@ class NavBar extends Component {
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}databases`}
+                to={`${this.props.match.url}/databases`}
               >
                 Databases
               </NavLink>
@@ -27,7 +27,7 @@ class NavBar extends Component {
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}browse`}
+                to={`${this.props.match.url}/browse`}
               >
                 Browse
               </NavLink>
@@ -57,7 +57,7 @@ class NavBar extends Component {
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}sqleditor`}
+                to={`${this.props.match.url}/sqleditor`}
               >
                 SQL Editor
               </NavLink>
@@ -67,7 +67,7 @@ class NavBar extends Component {
             <li>
               <NavLink
                 activeClassName="activeNav"
-                to={`${this.props.match.url}insert`}
+                to={`${this.props.match.url}/insert`}
               >
                 Insert
               </NavLink>
@@ -95,7 +95,7 @@ class NavBar extends Component {
           ) : null}
         </ul>
         <Route
-          path={`${this.props.match.url}browse`}
+          path={`${this.props.match.url}/browse`}
           render={() => (
             <Browse
               dbname={this.props.currDbname}
@@ -136,7 +136,7 @@ class NavBar extends Component {
           )}
         />
         <Route
-          path={`${this.props.match.url}insert`}
+          path={`${this.props.match.url}/insert`}
           render={() => (
             <Insert
               dbname={this.props.currDbname}

@@ -18,16 +18,21 @@ export function dbConnect(dbConfig){
 
 export function queryCall(query , dbConfig){
   return new Promise((resolve , reject) => {
-    // query = query.toLowerCase();
+    
     let action = query.split(' ')[0];
-    if((query.split(' ')[0]=='drop' || query.split(' ')[0]== 'alter') && query.split(' ')[1] == 'database'){
+    if((query.split(' ')[0].toLowerCase()=='drop' || query.split(' ')[0].toLowerCase()== 'alter') && query.split(' ')[1].toLowerCase() == 'database'){
       let database = query.split(' ')[2];
       if(database[database.length-1] == ';'){
         database = database.split(';')[0];    
       }
       dao.queryCall(query , dbConfig, database )
       .then(reply=>{
-        resolve({reply:`database ${action}ed`});
+        if(action == 'drop'){
+          resolve({reply:`database ${action}ped`});
+        }
+        else if(action == 'alter'){
+          resolve({reply:`database ${action}ed`});
+        }
       })
       .catch(err=> {
         let error={
@@ -40,10 +45,10 @@ export function queryCall(query , dbConfig){
       dao.queryCall(query , dbConfig)
     .then(reply => {
         
-        if(action == 'select'){          
+        if(action.toLowerCase() == 'select'){          
           resolve({reply});
         }
-        else if(action == 'insert'){
+        else if(action.toLowerCase() == 'insert'){
           let ans = reply.rowCount;
           ans = `${ans} rows inserted`;
           
@@ -51,7 +56,7 @@ export function queryCall(query , dbConfig){
             reply:ans
           });
         }
-        else if(action == 'create'){
+        else if(action.toLowerCase() == 'create'){
           
           let ans = query.split(' ')[1];
           ans = `${ans} created`;          
@@ -59,69 +64,76 @@ export function queryCall(query , dbConfig){
             reply:ans
           });
         }
-        else if(action == 'update'){
+        else if(action.toLowerCase() == 'update'){
           let ans =reply.rowCount;
           ans = `${ans} rows updated`;
           resolve({reply:ans});
         }
-        else if(action == 'update'){
+        else if(action.toLowerCase() == 'update'){
           let ans = query.split(' ')[1];
           ans = `${ans} updated`;
           resolve({reply:ans});
         }
-        else if(action == 'alter'){
+        else if(action.toLowerCase() == 'alter'){
           let ans = query.split(' ')[1];
           ans = `${ans} altered`;
           resolve({reply:ans});
         }
-        else if(action == 'delete'){          
+        else if(action.toLowerCase() == 'delete'){          
           let ans = reply.rowCount;
           ans = `${ans} rows deleted`;
           resolve({
             reply:ans
           })
         }
-        else if(action == 'drop'){
+        else if(action.toLowerCase() == 'drop'){
           let ans = query.split(' ')[1];
           ans = `${ans} dropped`;
           resolve({reply:ans});
         }
-        else if(action == 'truncate'){
+        else if(action.toLowerCase() == 'truncate'){
           let ans = query.split(' ')[1];
           ans = `${ans} truncated`;
           resolve({reply:ans});
         }
     })
-    .catch(err => { 
+    .catch(err => { console.log(err)
       let errorElement = err.split(' ')[1];
       let error;
-      if(errorElement == 'syntax'){
+      if(errorElement == 'syntax'){console.log(errorElement);
         error={
           status:400,
           message:err
         }
       }
-      errorElement = err.split(' ')[0];
-      if(errorElement == 'Please'){
-        error={
-          status:403,
-          message:err
-        }
-      }
-      errorElement = err.split(' ')[3];
-      if(errorElement == 'already'){
+      else if(errorElement == 'duplicate'){console.log(errorElement);
         error={
           status:409,
           message:err
         }
       }
-      else if(errorElement == 'does'){
+      errorElement = err.split(' ')[0];
+      if(errorElement == 'Please'){console.log(errorElement);
+        error={
+          status:403,
+          message:err
+        }
+      }
+      
+      errorElement = err.split(' ')[3];
+      if(errorElement == 'already'){console.log(errorElement);
+        error={
+          status:409,
+          message:err
+        }
+      }
+      else if(errorElement == 'does'){console.log(errorElement);
         error={
           status:404,
           message:err
         }
       }
-      else if(errorElement == 'use'){
+      else if(errorElement == 'use'){console.log(errorElement);
         error={
           status:409,
           message:err

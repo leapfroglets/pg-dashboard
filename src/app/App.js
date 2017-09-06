@@ -29,7 +29,7 @@ class App extends Component {
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
   }
 
-  render() {
+  render() {console.log(this.props)
     return (
       <div className="App">
         <div className="col-md-3 left-container">

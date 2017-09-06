@@ -40,3 +40,12 @@ textarea{
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
+/*Bikram*/
+/**My CSS**/
+.login-form{height: 300px;  width: 330px;   margin: 0 auto;  border: 1px solid; border-radius: 4px;text-align: center}
+.header{width: 100%;  border-bottom: 1px solid; height: 50px;  line-height: 50px; font-size: 30px;  background: #134f66;  color: white}
+#userName,#password {height: 35px;  width: 200px;  border:none;  font-size: 20px;  margin-top: 20px; border-bottom: 1px solid;}
+#userName:focus,#password:focus{ outline: none}
+#login{height: 40px;  width: 200px;  font-size: 20px;  border-radius: 4px;  margin-top: 40px; background: #134f66;  color: white}
+#login:focus{outline: none}
+.login-form-header{background-color:#541217;  height: 200px;  color: white;  margin-bottom: 20px;  text-align: center}

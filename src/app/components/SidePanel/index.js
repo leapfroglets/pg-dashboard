@@ -12,6 +12,7 @@ class SidePanel extends Component {
     this.refs.child1.refreshDatabaseList();
   }
   render() {
+    console.log("here")
     return (
       <div className="">
         <div
@@ -21,7 +22,7 @@ class SidePanel extends Component {
             this.props.onClick(null, null);
           }}
         >
-          <NavLink to="/databases">
+          <NavLink to="/database/databases">
             <img src="images/logo2.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
           </NavLink>
