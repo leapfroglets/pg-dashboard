@@ -24,7 +24,6 @@ class Browse extends Component {
     let tempPkeys=[];
     httpUtil.post(`http://localhost:4553/api/database/queries`, pKeyData)
     .then(response => {
-      console.log(response.data.reply.rows);
       if(response.data.reply.rows[0]){
         response.data.reply.rows.map(pkey => {
           tempPkeys.push(pkey.column_name);
@@ -55,7 +54,6 @@ class Browse extends Component {
         query: `select * FROM ${props.table}${order}`,
         dbname: props.dbname
       };
-      console.log(data.query);
       httpUtil
         .post(`http://localhost:4553/api/database/queries`, data)
         .then(response => {
@@ -109,7 +107,6 @@ class Browse extends Component {
       dbname: this.state.dbname
     }
     if(e.keyCode==13){
-      console.log(data.query)
       httpUtil.post(`http://localhost:4553/api/database/queries`, data)
       .then(response => {
         this.setState({
@@ -129,7 +126,6 @@ class Browse extends Component {
   }
 
   render() {
-    console.log(this.state.primaryKey)
     if (this.state.isLoaded === true) {
       return (
         <div>
@@ -151,7 +147,6 @@ class Browse extends Component {
                   this.state.primaryKey.map(pKey => {
                     pKeyValues[pKey] = entry[pKey];
                   })
-                  console.log(pKeyValues);
                 }
                 return (
                   <tr key={i}>
