@@ -123,6 +123,7 @@ class DatabaseStructure extends Component{
                           this.props.onClick(this.state.dbname,table.table_name);
                           this.props.history.push('/browse');
                         }}
+                        className="point"
                       >
                         {table.table_name}
                       </td>

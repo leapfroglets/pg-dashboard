@@ -18,7 +18,7 @@ export function dbConnect(dbConfig){
 
 export function queryCall(query , dbConfig){
   return new Promise((resolve , reject) => {
-    query = query.toLowerCase();
+    // query = query.toLowerCase();
     let action = query.split(' ')[0];
     if((query.split(' ')[0]=='drop' || query.split(' ')[0]== 'alter') && query.split(' ')[1] == 'database'){
       let database = query.split(' ')[2];
