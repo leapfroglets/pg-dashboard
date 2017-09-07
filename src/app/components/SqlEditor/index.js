@@ -13,12 +13,23 @@ class SqlEditor extends Component {
     this.options = { lineNumbers: true, mode: 'text/x-pgsql' };
     this.executeQuery = this.executeQuery.bind(this);
     this.saveSql = this.saveSql.bind(this);
+    this.loadSql = this.loadSql.bind(this);
     this.destroyClickedElement = this.destroyClickedElement.bind(this);
+  }
+  loadSql(e) {
+    var input = e.target;
+    var reader = new FileReader();
+    let editor = this.refs.editor.getCodeMirror();
+    reader.onload = function() {
+      var text = reader.result;
+      editor.setValue(text);
+    };
+    reader.readAsText(input.files[0]);
   }
   saveSql() {
     let textToWrite =
-      `--Created Date :${new Date()}\n --Database :${this.props.currDbname}\n\n` +
-      this.refs.editor.getCodeMirror().getValue();
+      `--Created Date :${new Date()}\n --Database :${this.props
+        .currDbname}\n\n` + this.refs.editor.getCodeMirror().getValue();
     let textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
     let fileNameToSaveAs = 'codeOfSql.sql';
 
@@ -67,6 +78,18 @@ class SqlEditor extends Component {
       this.props.currDbname !== null && (
         <div>
           <div className="x_panel">
+            <span>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                accept="text/*.sql"
+                className="inputfile"
+                onChange={e => this.loadSql(e)}
+              />
+              <label htmlFor="file" className="inputfilelabel">Choose SQL File</label>
+            </span>
+            <div className="ln_solid" />
             <div>
               <CodeMirror value="" options={this.options} ref="editor" />
               <div>(Press [Ctrl]+Enter to Execute )</div>
