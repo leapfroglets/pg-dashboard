@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 class SidePanel extends Component {
   render() {
-    console.log("here")
+
     return (
       <div className="left_col scroll-view">
         <div

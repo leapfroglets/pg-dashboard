@@ -22,13 +22,13 @@ class App extends Component {
     });
   }
 
-  componentWillMount() {
+  /*componentWillMount() {
     let data = {
       user: "postgres",
       password: "pdnejoh"
     };
     httpUtil.post(`http://localhost:4553/api/database/login`, data);
-  }
+  }*/
 
   render() {console.log(this.props)
     return (

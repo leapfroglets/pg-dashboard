@@ -12,13 +12,17 @@ class Login extends Component{
     e.preventDefault();
     let userName=document.getElementById('userName').value;
     let password=document.getElementById('password').value;
+    let hostName=document.getElementById('host').value;
+    let portNo=document.getElementById('port').value;
     if(!userName || !password){
       alert('username and Password fields cannot be left empty');
     }
     else{
       let data={
         user:userName,
-        password:password
+        password:password,
+        host:hostName,
+        port:portNo
       }
       
       httpUtil.post('http://localhost:4553/api/database/login',data)
@@ -26,7 +30,7 @@ class Login extends Component{
         this.props.changeState();      console.log(this.props.history);
         this.props.history.push('/database');
       })
-      .catch(err => {
+      .catch(err => {console.log(err)
         let error = err.response.data.error.message;
         alert(error)
       });
@@ -50,6 +54,8 @@ class Login extends Component{
           </div>
           <input type='text' id='userName' placeholder='User Name'/>
           <input type='password' id='password' placeholder='Password'/>
+          <input type='port' id='port' placeholder='port no.:5432'/>
+          <input type='host' id='host' placeholder='host:127.0.0.1'/>
           <input type='submit' value='Log In' id='login' />
           
         </div>
