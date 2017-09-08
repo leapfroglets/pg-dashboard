@@ -164,10 +164,6 @@ class NavBar extends Component {
             />
           )}
         />
-        {/* <Route
-          path={`${this.props.match.url}/databases`}
-          component={()=><Databases refresh={() => this.props.refresh()}/>}
-        /> */}
          <Route
           path={`${this.props.match.url}/databases`}
           render={() => (
@@ -176,6 +172,7 @@ class NavBar extends Component {
               onClick={(dbname, table) => {
                 this.props.onClick(dbname, table);
               }}
+              setActiveDb={(id,listOfDb) => {this.props.setActiveDb(id,listOfDb)}}
               history={this.props.history}
               match={this.props.match}
             />

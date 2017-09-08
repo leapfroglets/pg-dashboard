@@ -12,40 +12,30 @@ class SidePanel extends Component {
     this.refs.child1.refreshDatabaseList();
   }
   render() {
-    console.log("here")
     return (
       <div className="">
         <div
-          className=""
+          className="app-title-wrapper"
           style={{ border: 0 }}
           onClick={() => {
             this.props.onClick(null, null);
           }}
         >
           <NavLink to="/dashboard/databases">
-            <img src="/images/logo2.png" alt="logo" className="logo" />
+            <img src="/images/logo-white.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
           </NavLink>
         </div>
-
-        {/* <div className="clearfix" /> */}
-
-        {/* <br /> */}
-
-        <div
-          id=""
-          className=""
-        >
-          <div className="">
-            <h3>Databases</h3>
-            <DatabaseList
-              ref="child1"
-              onClick={(dbname, table) => {
-                this.props.onClick(dbname, table);
-              }}
-              history={this.props.history}
-            />
-          </div>
+        <div className="side-panel">
+          <h3 className="text-primary-color">Databases</h3>
+          <DatabaseList
+            ref="child1"
+            onClick={(dbname, table) => {
+              this.props.onClick(dbname, table);
+            }}
+            setActiveDb={(db_id,listOfDb,tb_id,listOfTb) => {this.props.setActiveDb(db_id,listOfDb,tb_id,listOfTb)}}
+            history={this.props.history}
+          />
         </div>
       </div>
     );

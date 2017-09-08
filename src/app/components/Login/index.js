@@ -41,7 +41,7 @@ class Login extends Component{
       }          
       }>   
         <div className='login-form-header'>
-          <img src='./images/logo2.png'/>
+          <img src='./images/logo-white.png'/>
           <h1>Welcome to PG-Admin</h1>
         </div>
         <div className='login-form'>

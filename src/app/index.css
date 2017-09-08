@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: #2A3F54!important;
+  background: #354052!important;
 }
 textarea{
   resize: none;
@@ -10,12 +10,14 @@ textarea{
 .left_col.scroll-view{
    /* height:100vh;   */
 }
-.col-md-3.left-container{
-  background: #2A3F54;
+.col-md-2.left-container{
+  background: #354052;
   height:100%;
+  padding-left:0px;
+  padding-right:0px;
   
 }
-.col-md-9.right-container{
+.col-md-10.right-container{
   background: white !important;
   min-height:100vh;
 }
