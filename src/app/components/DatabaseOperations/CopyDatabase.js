@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as httpUtil from '../../httpUtil';
-
-class CreateDatabase extends Component {
+class CopyDatabase extends Component {
   constructor() {
     super();
     this.state = {
@@ -9,12 +8,14 @@ class CreateDatabase extends Component {
       reply: '',
       error: ''
     };
+    this.copyDatabase = this.copyDatabase.bind(this);
   }
-  createDatabase() {
+  copyDatabase() {
     if (this.state.textBoxValue !== '') {
       let data = {
-        query: `create database ${this.state.textBoxValue}`,
-        dbname: 'postgres'
+        query: `create database ${this.state.textBoxValue} with template ${this
+          .props.currDbname};`,
+        dbname: this.props.currDbname
       };
       httpUtil
         .post(`http://localhost:4553/api/database/queries`, data)
@@ -25,7 +26,7 @@ class CreateDatabase extends Component {
             error: ''
           });
         })
-        .then(()=>this.props.refresh())
+        .then(() => this.props.refresh())
         .catch(err => {
           this.setState({ reply: '', error: err.response.data.error.message });
         });
@@ -35,7 +36,7 @@ class CreateDatabase extends Component {
     return (
       <div className="col-md-4">
         <div className="x_panel">
-          <div className="x_title">Create Database</div>
+          <div className="x_title">Copy {this.props.currDbname} to</div>
           <div>
             <input
               type="text"
@@ -52,13 +53,12 @@ class CreateDatabase extends Component {
           <input
             type="button"
             className="btn btn-round btn-default"
-            value="Create"
-            onClick={() => this.createDatabase()}
+            value="Copy"
+            onClick={() => this.copyDatabase()}
           />
         </div>
       </div>
     );
   }
 }
-
-export default CreateDatabase;
+export default CopyDatabase;

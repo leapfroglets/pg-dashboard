@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
-import CreateDatabase from "../CreateDatabase";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
+import CreateDatabase from '../CreateDatabase';
 
 class Databases extends Component {
   constructor() {
@@ -14,7 +14,7 @@ class Databases extends Component {
     let data = {
       query:
         "select * FROM pg_database where datistemplate=false and datname!='postgres'",
-      dbname: "postgres"
+      dbname: 'postgres'
     };
     httpUtil
       .post(`http://localhost:4553/api/database/queries`, data)
@@ -39,13 +39,20 @@ class Databases extends Component {
             {this.state.dbList.map(db => {
               return (
                 <tr key={db.datname}>
-                  <td>{db.datname}</td>
+                  <td 
+                    onClick={() => {
+                      this.props.onClick(db.datname, null);
+                      this.props.history.push(`${this.props.match.url}/databasestructure`);
+                    }}
+                  >
+                    {db.datname}
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <CreateDatabase />
+        <CreateDatabase refresh={() => this.props.refresh()} />
       </div>
     );
   }
