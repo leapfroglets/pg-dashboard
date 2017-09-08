@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import * as httpUtil from '../../httpUtil';
 import './style.css';
 class NavBreadCrumb extends Component {
   constructor() {
     super();
     this.redirect = this.redirect.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
+  logOut() {
+    httpUtil.get(`http://localhost:4553/api/database/logout`);
   }
   redirect(path) {
     this.props.history.push(path);
   }
   render() {
     return (
-      <div>
+      <span>
         <ol className="breadcrumb">
+          <li
+            className="point border"
+            onClick={() => {
+              this.logOut();
+              this.redirect(`/`);
+            }}
+          >
+            <i className="fa fa-sign-out" />Logout
+          </li>
           <li
             className="point size"
             onClick={() => {
@@ -37,7 +50,7 @@ class NavBreadCrumb extends Component {
             <li className="size">{this.props.currTable}</li>
           )}
         </ol>
-      </div>
+      </span>
     );
   }
 }
