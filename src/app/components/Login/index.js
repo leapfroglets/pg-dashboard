@@ -50,6 +50,8 @@ class Login extends Component{
           </div>
           <input type='text' id='userName' placeholder='User Name'/>
           <input type='password' id='password' placeholder='Password'/>
+          <input type='text' id='port' placeholder='port:5432'/>
+          <input type='text' id='host' placeholder='host:127.0.0.1'/>
           <input type='submit' value='Log In' id='login' />
           
         </div>

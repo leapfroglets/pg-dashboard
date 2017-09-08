@@ -93,7 +93,7 @@ export function queryCall(query , dbConfig){
         }
     })
     .catch(err => { 
-      let errorElement = err.split(' ')[1];
+      let errorElement = err.split(' ')[1];//console.log(errorElement)
       let error;
       if(errorElement == 'syntax'){
         error={
@@ -135,9 +135,9 @@ export function queryCall(query , dbConfig){
    
 }
 
-export function logOut(){
+export function logOut(user){
   return new Promise((resolve , reject) => {
-    dao.logOut() 
+    dao.logOut(user) 
     .then(reply => resolve(reply))
     .catch(err => {
       let error={
