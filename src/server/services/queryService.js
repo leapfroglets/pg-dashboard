@@ -4,7 +4,7 @@ export function dbConnect(dbConfig){
   return new Promise((resolve , reject) => {
     dao.dbConnect(dbConfig)
     .then(reply => resolve(reply))
-    .catch(err => {
+    .catch(err => {console.log(err)
       let error={
           status:401,
           message:err

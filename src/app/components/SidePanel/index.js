@@ -12,7 +12,7 @@ class SidePanel extends Component {
     this.refs.child1.refreshDatabaseList();
   }
   render() {
-    console.log("here")
+
     return (
       <div className="">
         <div

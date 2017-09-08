@@ -10,7 +10,7 @@ let dbConfig={
   password: ' ',
   database:' ',
   port:' ',
-  host:'127.0.0.1'
+  host:' '
 }
 //insert or create queries
 controller.post('/login' , (req , res , next) => {
@@ -18,8 +18,9 @@ controller.post('/login' , (req , res , next) => {
   dbConfig.database = req.body.dbname || 'postgres';
   dbConfig.user = req.body.user;
   dbConfig.password = req.body.password;
-  dbConfig.port = req.body.port || 5432;
-
+  dbConfig.port = req.body.port;
+  dbConfig.host = req.body.host;
+  
   services.dbConnect(dbConfig)
   .then (msg => res.json(msg))
   .catch(err => {
