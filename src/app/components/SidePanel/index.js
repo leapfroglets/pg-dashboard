@@ -6,26 +6,45 @@ import { NavLink } from 'react-router-dom';
 class SidePanel extends Component {
   constructor() {
     super();
+    this.state = {
+      dbList:[]
+    }
     this.refreshSidePanel = this.refreshSidePanel.bind(this);
   }
   refreshSidePanel() {
     this.refs.child1.refreshDatabaseList();
   }
+
+  setDblist(dbList){
+    this.setState({
+      dbList:dbList
+    })
+  }
+
+  collapseAll(dbList){
+    dbList.map(db => {
+      let ele = document.getElementById(db.datname+"_tblist");
+      ele.style.display="none";
+    })
+  }
   render() {
     return (
       <div className="">
-        <div
-          className="app-title-wrapper"
-          style={{ border: 0 }}
-          onClick={() => {
-            this.props.onClick(null, null);
-          }}
-        >
-          <NavLink to="/dashboard/databases">
+        <NavLink to="/dashboard/databases">
+          <div
+            className="app-title-wrapper"
+            style={{ border: 0 }}
+            onClick={() => {
+              this.props.onClick(null, null);
+              this.collapseAll(this.state.dbList); 
+            }}
+          >
+            
             <img src="/images/logo-white.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
-          </NavLink>
-        </div>
+            
+          </div>
+        </NavLink>
         <div className="side-panel">
           <h3 className="text-primary-color">Databases</h3>
           <DatabaseList
@@ -35,6 +54,7 @@ class SidePanel extends Component {
             }}
             setActiveDb={(db_id,listOfDb,tb_id,listOfTb) => {this.props.setActiveDb(db_id,listOfDb,tb_id,listOfTb)}}
             history={this.props.history}
+            setDblist={(dbList) => {this.setDblist(dbList)}}
           />
         </div>
       </div>

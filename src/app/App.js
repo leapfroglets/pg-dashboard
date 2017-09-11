@@ -48,7 +48,6 @@ class App extends Component {
           ele2.style.background='none';
           let ul2=ele2.getElementsByTagName("UL");
           let li2=ul2[0].getElementsByTagName("LI");
-          // console.log(li);
           for(let key in li2){
             if(key.slice(key.length-3,key.length)==="_id"){
               li2[key].style.background='none';

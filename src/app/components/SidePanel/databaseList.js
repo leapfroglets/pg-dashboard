@@ -23,6 +23,7 @@ class DatabaseList extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
+        this.props.setDblist(response.data.reply.rows);
       })
       .then(() => {
         for (let i = 0; i < Object.keys(this.refs).length; i++)
@@ -42,6 +43,7 @@ class DatabaseList extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
+        this.props.setDblist(response.data.reply.rows);
       });
   }
 

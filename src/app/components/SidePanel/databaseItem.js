@@ -42,7 +42,7 @@ class DatabaseItem extends Component {
       });
   }
   showTables() {
-    let element = document.getElementById(this.props.dbname);
+    let element = document.getElementById(this.props.dbname+"_tblist");
     if (this.state.plusIsNext) {
       element.style.display = 'block';
       this.setState({
@@ -85,7 +85,7 @@ class DatabaseItem extends Component {
             <i className="fa fa-database db-icon" />
             {this.props.dbname}
           </span>
-          <ul className="table-list" id={this.props.dbname}>
+          <ul className="table-list" id={this.props.dbname+"_tblist"}>
             {this.state.tabList.map(table => {
               return (
                 <li className="point"
