@@ -42,6 +42,7 @@ class Databases extends Component {
                   <td 
                     onClick={() => {
                       this.props.onClick(db.datname, null);
+                      this.props.setActiveDbTb(db.datname, null);
                       this.props.history.push(`${this.props.match.url}/databasestructure`);
                     }}
                   >

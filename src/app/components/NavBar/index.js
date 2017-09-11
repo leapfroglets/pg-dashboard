@@ -123,6 +123,7 @@ class NavBar extends Component {
               }}
               match={this.props.match}
               history={this.props.history}
+              setActiveDbTb={(db,tb) => {this.props.setActiveDbTb(db,tb)}}s
             />
           )}
         />
@@ -174,6 +175,7 @@ class NavBar extends Component {
               }}
               history={this.props.history}
               match={this.props.match}
+              setActiveDbTb={(db,tb) => {this.props.setActiveDbTb(db,tb)}}
             />
           )}
         />

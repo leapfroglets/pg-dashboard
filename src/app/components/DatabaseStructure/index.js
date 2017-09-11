@@ -122,6 +122,7 @@ class DatabaseStructure extends Component{
                         onClick={() =>{
                           this.props.onClick(this.state.dbname,table.table_name);
                           this.props.history.push(`${this.props.match.url}/browse`);
+                          this.props.setActiveDbTb(this.state.dbname,table.table_name)
                         }}
                         className="point"
                       >

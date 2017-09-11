@@ -29,6 +29,10 @@ class SidePanel extends Component {
     })
   }
 
+  setActiveDbTb(db,tb){
+    this.refs.child1.setActiveDbTb(db,tb);
+  }
+
   render() {
     return (
       <div className="">

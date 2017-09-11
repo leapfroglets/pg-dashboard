@@ -32,6 +32,7 @@ class NavBreadCrumb extends Component {
             onClick={() => {
               this.props.onClick(null, null);
               this.redirect(`${this.props.match.url}/databases`);
+              this.props.setActiveDbTb(null,null);
             }}
           >
             {window.location.href.split('/')[2]}
@@ -42,6 +43,7 @@ class NavBreadCrumb extends Component {
               onClick={() => {
                 this.props.onClick(this.props.currDbname, null);
                 this.redirect(`${this.props.match.url}/databasestructure`);
+                this.props.setActiveDbTb(this.props.currDbname,null);
               }}
             >
               {this.props.currDbname}

@@ -43,6 +43,7 @@ class App extends Component {
             }}
             changeState={(value)=>{this.props.changeState(value)}}
             history={this.props.obj.history}
+            setActiveDbTb={(db,tb) => {this.refs.side.setActiveDbTb(db,tb)}}
           />
           <NavBar
             currDbname={this.state.currDbname}
@@ -53,6 +54,7 @@ class App extends Component {
               this.handleClick(dbname, table);
             }}
             history={this.props.obj.history}
+            setActiveDbTb={(db,tb) => {this.refs.side.setActiveDbTb(db,tb)}}
           />
         </div>
       </div>
