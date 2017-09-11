@@ -34,8 +34,8 @@ export function connectClient(query ,dbConfig,database ){
   return new Promise((resolve , reject) => {
     //console.log(dbConfig);
     let pos;
-    for(let i=0;i<index;i++){console.log(clients[i][0].connectionParameters.user, dbConfig.user)
-      if(clients[i][0].connectionParameters.user == dbConfig.user){console.log('match user')
+    for(let i=0;i<index;i++){//console.log(clients[i][0].connectionParameters.user, dbConfig.user)
+      if(clients[i][0].connectionParameters.user == dbConfig.user){//console.log('match user')
         pos = i+1;
       }
     }
@@ -47,9 +47,7 @@ export function connectClient(query ,dbConfig,database ){
       let err='Database currently in use';
       return reject(err);
     }
-    let connections = clients[pos-1];
-    
-    
+    let connections = clients[pos-1];    
     let flag=0;
     connections.forEach((connection)=>{
       if(connection.connectionParameters.database == dbConfig.database){
@@ -83,25 +81,28 @@ export function connectClient(query ,dbConfig,database ){
 export function disConnect(user){
   return new Promise((resolve, reject) => {
     let pos, connections;
-    if(index<=0){
-    return  reject('Please login first');  
+    if(clients.length == 0){
+      return  reject('Please login first');  
     }
-    for(let i=0;i<index;i++){ //     console.log(clients[i][0].connectionParameters.user, )
+    for(let i=0;i<clients.length;i++){ 
       if(clients[i][0].connectionParameters.user == user){
-         pos =i+1;console.log(clients[i][0].connectionParameters.user,'match')
+         pos =i+1;//console.log(clients[i][0].connectionParameters.user,'match',pos)
       }
     }
-    if(pos){
+    if(pos){//console.log('m here');
       connections = clients[pos-1];
-    }
-
-    
       connections.forEach((connection)=> {
         connection.end();
       })
       connections.length = 0;
       clients[pos-1] = connections;
-      resolve({reply:'logged out '});
+      clients.splice((pos-1),1);
+      --index;
+      resolve({reply:'logged out '});    
+    }    
+    else{
+      return  reject('Please login first');  
+    }
     
   })
 }

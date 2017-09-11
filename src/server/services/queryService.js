@@ -30,9 +30,19 @@ export function queryCall(query , dbConfig){
         resolve({reply:`database ${action}ed`});
       })
       .catch(err=> {
-        let error={
-          status:409,
-          message:err
+        let errorElement = err.split(' ')[0];
+        let error;
+        if(errorElement == 'Database'){
+          error={
+            status:409,
+            message:err
+          }
+        }
+        else if(errorElement == 'Please'){
+          error={
+            status:403,
+            message:err
+          }
         }
         reject(error)});
     }
@@ -92,8 +102,8 @@ export function queryCall(query , dbConfig){
           resolve({reply:ans});
         }
     })
-    .catch(err => { 
-      let errorElement = err.split(' ')[1];//console.log(errorElement)
+    .catch(err => { console.log(err)
+      let errorElement = err.split(' ')[1];
       let error;
       if(errorElement == 'syntax'){
         error={
