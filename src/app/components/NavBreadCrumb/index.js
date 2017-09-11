@@ -9,6 +9,7 @@ class NavBreadCrumb extends Component {
   }
   logOut() {
     httpUtil.get(`http://localhost:4553/api/database/logout`);
+    this.props.changeState(false);
   }
   redirect(path) {
     this.props.history.push(path);

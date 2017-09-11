@@ -5,7 +5,6 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: false,
       error: ''
     };
   }
@@ -28,7 +27,7 @@ class Login extends Component {
       httpUtil
         .post('http://localhost:4553/api/database/login', data)
         .then(res => {
-          this.props.changeState();
+          this.props.changeState(true);
           console.log(this.props.history);
           this.props.history.push('/dashboard');
         })
