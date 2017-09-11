@@ -23,7 +23,6 @@ class Databases extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
-        this.props.setActiveDb(null,response.data.reply.rows,null,null);
       });
   }
 
@@ -43,7 +42,7 @@ class Databases extends Component {
                   <td 
                     onClick={() => {
                       this.props.onClick(db.datname, null);
-                      this.props.setActiveDb(db.datname+"_id",this.state.dbList);
+                      this.props.setActiveDbTb(db.datname, null);
                       this.props.history.push(`${this.props.match.url}/databasestructure`);
                     }}
                   >
