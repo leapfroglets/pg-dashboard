@@ -10,6 +10,7 @@ class SidePanel extends Component {
       dbList:[]
     }
     this.refreshSidePanel = this.refreshSidePanel.bind(this);
+    this.resetSign = this.resetSign.bind(this);
   }
   refreshSidePanel() {
     this.refs.child1.refreshDatabaseList();
@@ -27,6 +28,11 @@ class SidePanel extends Component {
       ele.style.display="none";
     })
   }
+
+  resetSign(){
+    this.refs.child1.resetSign();
+  }
+
   render() {
     return (
       <div className="">
@@ -46,7 +52,6 @@ class SidePanel extends Component {
           </div>
         </NavLink>
         <div className="side-panel">
-          <h3 className="text-primary-color">Databases</h3>
           <DatabaseList
             ref="child1"
             onClick={(dbname, table) => {

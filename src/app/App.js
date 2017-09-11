@@ -35,6 +35,7 @@ class App extends Component {
             li[key].style.background='none';
           }
         }
+        this.refs.side.resetSign();
       })
     }
     else{
@@ -68,10 +69,6 @@ class App extends Component {
       }
     }
   }
-
-  // setActiveTb(id,listOfDb){
-    
-  // }
 
   render() {
     return (

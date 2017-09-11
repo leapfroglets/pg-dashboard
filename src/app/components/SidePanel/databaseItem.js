@@ -10,6 +10,7 @@ class DatabaseItem extends Component {
       isLoaded: false
     };
     this.refreshDataItem = this.refreshDataItem.bind(this);
+    this.resetSign=this.resetSign.bind(this);
   }
   refreshDataItem() {
     let data = {
@@ -25,6 +26,12 @@ class DatabaseItem extends Component {
           isLoaded: true
         });
       });
+  }
+  
+  resetSign(){
+    this.setState({
+      plusIsNext:true
+    })
   }
   componentWillMount() {
     let data = {

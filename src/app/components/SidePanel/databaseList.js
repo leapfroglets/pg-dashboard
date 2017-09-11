@@ -9,6 +9,7 @@ class DatabaseList extends Component {
       dbList: []
     };
     this.refreshDatabaseList = this.refreshDatabaseList.bind(this);
+    this.resetSign = this.resetSign.bind(this);
   }
   refreshDatabaseList() {
     let data = {
@@ -30,6 +31,12 @@ class DatabaseList extends Component {
           this.refs['child' + i].refreshDataItem();
       });
   }
+  
+  resetSign(){
+    for (let i = 0; i < Object.keys(this.refs).length; i++)
+      this.refs['child' + i].resetSign();
+  }
+
   componentWillMount() {
     let data = {
       query:
