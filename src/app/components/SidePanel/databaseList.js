@@ -9,6 +9,7 @@ class DatabaseList extends Component {
       dbList: []
     };
     this.refreshDatabaseList = this.refreshDatabaseList.bind(this);
+    this.resetSign = this.resetSign.bind(this);
   }
   refreshDatabaseList() {
     let data = {
@@ -23,12 +24,19 @@ class DatabaseList extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
+        this.props.setDblist(response.data.reply.rows);
       })
       .then(() => {
         for (let i = 0; i < Object.keys(this.refs).length; i++)
           this.refs['child' + i].refreshDataItem();
       });
   }
+  
+  resetSign(){
+    for (let i = 0; i < Object.keys(this.refs).length; i++)
+      this.refs['child' + i].resetSign();
+  }
+
   componentWillMount() {
     let data = {
       query:
@@ -42,13 +50,26 @@ class DatabaseList extends Component {
           dbList: response.data.reply.rows,
           isLoaded: true
         });
+        this.props.setDblist(response.data.reply.rows);
       });
   }
+
+  // setActiveDb(id,listOfDb){
+  //   let ele = document.getElementById(id);
+  //   ele.style.borderLeft= '4px solid #03A9F4';
+  //   listOfDb.map(db => {
+  //     let ele2 = document.getElementById(db.datname+'_id')
+  //     if(db.datname+'_id' != id){
+  //       ele2.style.borderLeft= '4px solid rgba(0,0,0,0)';
+  //     }
+  //   })
+    
+  // }
 
   render() {
     if (this.state.isLoaded === true) {
       return (
-        <ul className="">
+        <ul className="db-list clearfix">
           {this.state.dbList.map((dbInfo, i) => {
             return (
               <DatabaseItem
@@ -58,6 +79,7 @@ class DatabaseList extends Component {
                 onClick={(dbname, table) => {
                   this.props.onClick(dbname, table);
                 }}
+                setActiveDb={(db_id,tb_id,listOfTb) => {this.props.setActiveDb(db_id,this.state.dbList,tb_id,listOfTb)}}
                 history={this.props.history}
               />
             );

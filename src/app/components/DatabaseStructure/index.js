@@ -109,8 +109,8 @@ class DatabaseStructure extends Component{
           <table className="table table-striped">
             <thead>
               <tr>
-                <td>Table Name</td>
-                <td> Action</td>
+                <th>Table Name</th>
+                <th> Action</th>
               </tr>
             </thead>
             <tbody>

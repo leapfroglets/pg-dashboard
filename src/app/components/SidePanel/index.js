@@ -6,46 +6,61 @@ import { NavLink } from 'react-router-dom';
 class SidePanel extends Component {
   constructor() {
     super();
+    this.state = {
+      dbList:[]
+    }
     this.refreshSidePanel = this.refreshSidePanel.bind(this);
+    this.resetSign = this.resetSign.bind(this);
   }
   refreshSidePanel() {
     this.refs.child1.refreshDatabaseList();
   }
-  render() {
 
+  setDblist(dbList){
+    this.setState({
+      dbList:dbList
+    })
+  }
+
+  collapseAll(dbList){
+    dbList.map(db => {
+      let ele = document.getElementById(db.datname+"_tblist");
+      ele.style.display="none";
+    })
+  }
+
+  resetSign(){
+    this.refs.child1.resetSign();
+  }
+
+  render() {
     return (
       <div className="">
-        <div
-          className=""
-          style={{ border: 0 }}
-          onClick={() => {
-            this.props.onClick(null, null);
-          }}
-        >
-          <NavLink to="/dashboard/databases">
-            <img src="/images/logo2.png" alt="logo" className="logo" />
+        <NavLink to="/dashboard/databases">
+          <div
+            className="app-title-wrapper"
+            style={{ border: 0 }}
+            onClick={() => {
+              this.props.onClick(null, null);
+              this.collapseAll(this.state.dbList); 
+            }}
+          >
+            
+            <img src="/images/logo-white.png" alt="logo" className="logo" />
             <span className="pg-title">PG Dashboard</span>
-          </NavLink>
-        </div>
-
-        {/* <div className="clearfix" /> */}
-
-        {/* <br /> */}
-
-        <div
-          id=""
-          className=""
-        >
-          <div className="">
-            <h3>Databases</h3>
-            <DatabaseList
-              ref="child1"
-              onClick={(dbname, table) => {
-                this.props.onClick(dbname, table);
-              }}
-              history={this.props.history}
-            />
+            
           </div>
+        </NavLink>
+        <div className="side-panel">
+          <DatabaseList
+            ref="child1"
+            onClick={(dbname, table) => {
+              this.props.onClick(dbname, table);
+            }}
+            setActiveDb={(db_id,listOfDb,tb_id,listOfTb) => {this.props.setActiveDb(db_id,listOfDb,tb_id,listOfTb)}}
+            history={this.props.history}
+            setDblist={(dbList) => {this.setDblist(dbList)}}
+          />
         </div>
       </div>
     );
