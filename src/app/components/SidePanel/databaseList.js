@@ -6,10 +6,19 @@ class DatabaseList extends Component {
     super();
     this.state = {
       isLoaded: false,
-      dbList: []
+      dbList: [],
+      activeDb:null,
+      activeTb:null
     };
     this.refreshDatabaseList = this.refreshDatabaseList.bind(this);
     this.resetSign = this.resetSign.bind(this);
+  }
+
+  setActiveDbTb(db,tb){
+    this.setState({
+      activeDb:db,
+      activeTb:tb
+    })
   }
   refreshDatabaseList() {
     let data = {
@@ -54,18 +63,6 @@ class DatabaseList extends Component {
       });
   }
 
-  // setActiveDb(id,listOfDb){
-  //   let ele = document.getElementById(id);
-  //   ele.style.borderLeft= '4px solid #03A9F4';
-  //   listOfDb.map(db => {
-  //     let ele2 = document.getElementById(db.datname+'_id')
-  //     if(db.datname+'_id' != id){
-  //       ele2.style.borderLeft= '4px solid rgba(0,0,0,0)';
-  //     }
-  //   })
-    
-  // }
-
   render() {
     if (this.state.isLoaded === true) {
       return (
@@ -79,8 +76,10 @@ class DatabaseList extends Component {
                 onClick={(dbname, table) => {
                   this.props.onClick(dbname, table);
                 }}
-                setActiveDb={(db_id,tb_id,listOfTb) => {this.props.setActiveDb(db_id,this.state.dbList,tb_id,listOfTb)}}
                 history={this.props.history}
+                setActiveDbTb={(db,tb) => {this.setActiveDbTb(db,tb)}}
+                activeDb={this.state.activeDb}
+                activeTb={this.state.activeTb}
               />
             );
           })}

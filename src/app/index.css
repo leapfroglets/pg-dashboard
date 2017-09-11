@@ -125,3 +125,21 @@ textarea {
   margin:20px 0px;
   color:rgba(255, 255,255, 1)
 }
+
+.active-db{
+  border-left:4px solid #03A9F4 !important;
+  background: rgba(0,0,0,0.2);
+}
+
+.not-active-db{
+  border-left: 4px solid rgba(0,0,0,0);
+  background: none;
+}
+
+.active-tb{
+  background: rgba(0,0,0,0.2);
+}
+
+.not-active-tb{
+  background: none
+}

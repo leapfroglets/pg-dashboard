@@ -7,7 +7,9 @@ class DatabaseItem extends Component {
     this.state = {
       tabList: [],
       plusIsNext: true,
-      isLoaded: false
+      isLoaded: false,
+      activeDb:null,
+      activeTb:null
     };
     this.refreshDataItem = this.refreshDataItem.bind(this);
     this.resetSign=this.resetSign.bind(this);
@@ -44,10 +46,20 @@ class DatabaseItem extends Component {
       .then(response => {
         this.setState({
           tabList: response.data.reply.rows,
-          isLoaded: true
+          isLoaded: true,
+          activeDb:this.props.activeDb,
+          activeTb:this.props.activeTb
         });
       });
   }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      activeDb:nextProps.activeDb,
+      activeTb:nextProps.activeTb
+    })
+  }
+
   showTables() {
     let element = document.getElementById(this.props.dbname+"_tblist");
     if (this.state.plusIsNext) {
@@ -67,10 +79,17 @@ class DatabaseItem extends Component {
   }
 
   render() {
+    console.log(this.props.activeDb);
     if (this.state.isLoaded === true) {
       let sign = this.state.plusIsNext ? '+' : '-';
       return (
-        <li className="clearfix" key={this.props.dbname} id={this.props.dbname+"_id"}>
+        <li 
+          className={(this.state.activeDb===this.props.dbname) ?
+            "clearfix active-db":"clearfix not-active-db"
+          } 
+          key={this.props.dbname} 
+          id={this.props.dbname+"_id"}
+        >
           <span className="button-wrapper">
             <button
               className="sign-button"
@@ -85,7 +104,7 @@ class DatabaseItem extends Component {
             className="dbname-wrapper point"
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.props.setActiveDb(this.props.dbname+"_id",null,this.state.tabList);
+              this.props.setActiveDbTb(this.props.dbname, null);
               this.redirect('/dashboard/databasestructure');
             }}
           >
@@ -95,12 +114,15 @@ class DatabaseItem extends Component {
           <ul className="table-list" id={this.props.dbname+"_tblist"}>
             {this.state.tabList.map(table => {
               return (
-                <li className="point"
+                <li
+                  className={(this.state.activeTb===table.table_name && this.state.activeDb===this.props.dbname) ?
+                    "point active-tb":"point not-active-tb"
+                  }
                   key={table.table_name}
                   id={table.table_name+"_id"}
                   onClick={() => {
                     this.props.onClick(this.props.dbname, table.table_name);
-                    this.props.setActiveDb(this.props.dbname+"_id",table.table_name+"_id",this.state.tabList);
+                    this.props.setActiveDbTb(this.props.dbname, table.table_name);
                     this.redirect("/dashboard/browse");
                   }}
                 >

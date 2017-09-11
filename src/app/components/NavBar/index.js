@@ -172,7 +172,6 @@ class NavBar extends Component {
               onClick={(dbname, table) => {
                 this.props.onClick(dbname, table);
               }}
-              setActiveDb={(id,listOfDb) => {this.props.setActiveDb(id,listOfDb)}}
               history={this.props.history}
               match={this.props.match}
             />

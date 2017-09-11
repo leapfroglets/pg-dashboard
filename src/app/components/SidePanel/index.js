@@ -10,7 +10,6 @@ class SidePanel extends Component {
       dbList:[]
     }
     this.refreshSidePanel = this.refreshSidePanel.bind(this);
-    this.resetSign = this.resetSign.bind(this);
   }
   refreshSidePanel() {
     this.refs.child1.refreshDatabaseList();
@@ -26,11 +25,8 @@ class SidePanel extends Component {
     dbList.map(db => {
       let ele = document.getElementById(db.datname+"_tblist");
       ele.style.display="none";
+      this.refs.child1.resetSign();
     })
-  }
-
-  resetSign(){
-    this.refs.child1.resetSign();
   }
 
   render() {
