@@ -9,33 +9,35 @@ class Router extends Component {
     super();
     this.state = {
       isActive: 'browse',
-      isLoggedIn: false
+      isLoggedIn: localStorage.getItem("isLoggedIn")
     };
   }
 
-  changeState(){
-    console.log('change state');
+  changeState(value){
     this.setState({
-      isLoggedIn:true
-    })
+      isLoggedIn:value
+    });
+    localStorage.setItem("isLoggedIn", value);
   }
-
-  render() {
+  componentWillMount(){
     let history = createBrowserHistory();
-    if(!this.state.isLoggedIn){
+    if(this.state.isLoggedIn=='false'){
       history.push('/');
     }
+  }
+  render() {
+
     return (
       <BrowserRouter>
         <div>
           <Route
             path="/dashboard"
-            render={obj => <App obj={obj} />} 
+            render={obj => <App obj={obj} changeState={(value)=>{this.changeState(value)}} />} 
           />
           <Route
             exact path="/"
             render={({history})=>(
-              <Login changeState={()=>{this.changeState()}} history={history}/>
+              <Login changeState={(value)=>{this.changeState(value)}} history={history}/>
             )} 
           />
         </div>

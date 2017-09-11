@@ -91,6 +91,7 @@ class App extends Component {
             onClick={(dbname, table) => {
               this.handleClick(dbname, table);
             }}
+            changeState={(value)=>{this.props.changeState(value)}}
             history={this.props.obj.history}
           />
           <NavBar

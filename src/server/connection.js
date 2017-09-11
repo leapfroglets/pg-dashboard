@@ -7,13 +7,12 @@ export function firstConnect(dbConfig){
   
   return new Promise((resolve , reject) => {
     let conString = `postgres://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
-    let client = new pg.Client(conString);
+    let client = new pg.Client(conString);console.log(conString)
     client.connect((err , client , done) => {
-      if(err){
+      if(err){console.log(err)
         return reject(err.stack.split('\n')[0]);
       }
-      clients.push(client);
-    
+      clients.push(client);    
       resolve({reply:'logged in successfully'});
     });
     
