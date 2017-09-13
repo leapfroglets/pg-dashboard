@@ -32,14 +32,14 @@ export function firstConnect(dbConfig){
 export function connectClient(query ,dbConfig,database ){
 
   return new Promise((resolve , reject) => {
-    //console.log(dbConfig);
-    let pos;
-    for(let i=0;i<index;i++){//console.log(clients[i][0].connectionParameters.user, dbConfig.user)
-      if(clients[i][0].connectionParameters.user == dbConfig.user){//console.log('match user')
+    
+    let pos,rows;
+    for(let i=0;i<index;i++){
+      if(clients[i][0].connectionParameters.user == dbConfig.user){
         pos = i+1;
       }
     }
-    if(!pos){console.log(clients.length , pos);
+    if(!pos){
       let err='Please login first';
       return reject(err);
     }
@@ -49,35 +49,49 @@ export function connectClient(query ,dbConfig,database ){
     }
     let connections = clients[pos-1];    
     let flag=0;
-    connections.forEach((connection)=>{
+    connections.forEach((connection,i)=>{
       if(connection.connectionParameters.database == dbConfig.database){
-        flag = 1;console.log('match database')
-        currentDb = connection;
+        flag = 1;
+        rows = runQuery(connection,query)
+        .then(rows => resolve(rows))
+        .catch(err => reject(err)); 
+      }
+      else if(connection.connectionParameters.database == database){
+        connection.end();
+        connections.splice(i,1);
+        clients[pos-1]=connections;
       }
     })
     if(flag == 0){
-      let conString = `postgres://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
+      let conString = `postgres://${dbConfig.user}:${connections[0].connectionParameters.password}@${connections[0].connectionParameters.host}:${connections[0].connectionParameters.port}/${dbConfig.database}`;
       let client = new pg.Client(conString);
       client.connect((err , client , done) => {
         if(err){
           return reject(err.stack.split('\n')[0]);
         }
-        connections.push(client);
-        currentDb = client;
+        connections.push(client);       
         clients[pos-1]=connections;
+        rows = runQuery(client,query)
+        .then(rows => resolve(rows))
+        .catch(err => reject(err));
       });
-    }
-    currentDb.query(query,(err , rows)=> {
+    }   
+    
+  })  
+  
+}
+function runQuery(client,query){
+  return new Promise((resolve , reject)=>{
+    
+    client.query(query,(err , rows)=> {
       if(err){
         return reject(err.stack.split('\n')[0]);
       }
       resolve(rows);
     })
-    clients[pos]=connections;
-  })  
+  })
   
 }
-
 export function disConnect(user){
   return new Promise((resolve, reject) => {
     let pos, connections;
@@ -86,10 +100,10 @@ export function disConnect(user){
     }
     for(let i=0;i<clients.length;i++){ 
       if(clients[i][0].connectionParameters.user == user){
-         pos =i+1;//console.log(clients[i][0].connectionParameters.user,'match',pos)
+         pos =i+1;
       }
     }
-    if(pos){//console.log('m here');
+    if(pos){
       connections = clients[pos-1];
       connections.forEach((connection)=> {
         connection.end();

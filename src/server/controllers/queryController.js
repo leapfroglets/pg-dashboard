@@ -29,11 +29,11 @@ controller.post('/login' , (req , res , next) => {
 
   services.dbConnect(dbConfig)
   .then (msg => {
-    reset();
+    
     res.json(msg)
   })
   .catch(err => {
-    reset();
+    
     next(err)
   });
   
@@ -46,11 +46,11 @@ controller.post('/queries' , (req , res , next) => {
   query = query.replace(/\s+/g, ' ').trim();
   services.queryCall(query , dbConfig)
   .then(reply =>{
-    reset(); 
+    
     res.json(reply);
   })
   .catch(err =>{
-    reset();
+    
     next(err);
   });
 })
