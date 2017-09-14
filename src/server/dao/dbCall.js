@@ -14,7 +14,7 @@ export function queryCall(query , dbConfig , database){
   
 }
 
-export function logOut(){
+export function logOut(user){
  
-  return conn.disConnect();
+  return conn.disConnect(user);
 }
