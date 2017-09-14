@@ -1,15 +1,60 @@
 import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
+import './style.css';
 class NavBreadCrumb extends Component {
+  constructor() {
+    super();
+    this.redirect = this.redirect.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
+  logOut() {
+    httpUtil.get(`http://localhost:4553/api/database/logout`);
+    this.props.changeState(false);
+  }
+  redirect(path) {
+    this.props.history.push(path);
+  }
   render() {
     return (
-      <div>
-        <ol className='breadcrumb'>
-          <li>{window.location.href.split('/')[2]}</li>
-          {this.props.currDbname != null && <li>{this.props.currDbname}</li>}
-          {this.props.currTable != null && <li>{this.props.currTable}</li>}
+      <span>
+        <ol className="breadcrumb">
+          <li
+            className="point border"
+            onClick={() => {
+              this.logOut();
+              this.redirect(`/`);
+            }}
+          >
+            <i className="fa fa-sign-out" />Logout
+          </li>
+          <li
+            className="point size"
+            onClick={() => {
+              this.props.onClick(null, null);
+              this.redirect(`${this.props.match.url}/databases`);
+              this.props.setActiveDbTb(null,null);
+            }}
+          >
+            {window.location.href.split('/')[2]}
+          </li>
+          {this.props.currDbname != null && (
+            <li
+              className="point size"
+              onClick={() => {
+                this.props.onClick(this.props.currDbname, null);
+                this.redirect(`${this.props.match.url}/databasestructure`);
+                this.props.setActiveDbTb(this.props.currDbname,null);
+              }}
+            >
+              {this.props.currDbname}
+            </li>
+          )}
+          {this.props.currTable != null && (
+            <li className="size">{this.props.currTable}</li>
+          )}
         </ol>
-      </div>
-    )
+      </span>
+    );
   }
 }
 export default NavBreadCrumb;

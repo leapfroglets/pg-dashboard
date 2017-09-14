@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import App from "./App";
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import App from './App';
 import Login from './components/Login'
 import createBrowserHistory from 'history/createBrowserHistory';
 
@@ -8,28 +8,38 @@ class Router extends Component {
   constructor() {
     super();
     this.state = {
-      isActive: "browse",
-      isLoggedIn: false
+      isActive: 'browse',
+      isLoggedIn: localStorage.getItem("isLoggedIn")
     };
   }
 
-  changeState(){
-    console.log('change state');
+  changeState(value){
     this.setState({
-      isLoggedIn:true
-    })
+      isLoggedIn:value
+    });
+    localStorage.setItem("isLoggedIn", value);
   }
-
-  render() {
+  componentWillMount(){
     let history = createBrowserHistory();
-    if(!this.state.isLoggedIn){
+    if(this.state.isLoggedIn=='false'){
       history.push('/');
     }
+  }
+  render() {
+
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/" render={({history})=>(<Login changeState={()=>{this.changeState()}} history={history}/>)} />
-          <Route path="/database" component={App}/>
+          <Route
+            path="/dashboard"
+            render={obj => <App obj={obj} changeState={(value)=>{this.changeState(value)}} />} 
+          />
+          <Route
+            exact path="/"
+            render={({history})=>(
+              <Login changeState={(value)=>{this.changeState(value)}} history={history}/>
+            )} 
+          />
         </div>
       </BrowserRouter>
     );

@@ -1,12 +1,87 @@
 .nav>li>a{
   display:inline-block;
 }
+.app-title-wrapper{
+  padding:10px;
+  background: #0f7faf;
+}
  .logo{
   width:20%;
 } 
 
 .pg-title{
-  font-weight:bold;
   color:white;
-  font-size:30px;
+  font-size:16px;
+  padding:10px;
 }
+.db-list{
+  list-style-type: none;
+  padding-left: 0px;
+}
+.db-list li{
+  padding: 0px 0px;
+  border-bottom: 1px solid #2b3441;
+  border-left:4px solid rgba(0,0,0,0);
+}
+
+.db-list li:hover{
+  background: rgba(255,255,255,0.2);
+}
+.db-active{
+  border-left:4px solid #03A9F4;
+}
+.db-list li .button-wrapper{
+  width:20%;
+  float:left;
+  padding-left:10px;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+.db-list li .dbname-wrapper{
+  color: white;
+  width: 80%;
+  float:right;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sign-button{
+  height: 15px;
+  width: 15px;
+  padding: 0;
+  line-height: 10px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  border-radius:15px;
+  border:none;
+  background: #03A9F4;
+  color:white;
+  text-align: center;
+}
+.db-icon{
+  margin-right: 10px;
+}
+.table-list{
+  display: none;
+  list-style-type: none;
+  clear:both;
+  padding-left:0px;
+}
+.table-list li{
+  border-bottom:none;
+  color:white;
+  padding:10px 0px;
+  padding-left:38px;
+}
+
+h3{
+  font-size:12px;
+  padding-left:10px;
+}
+
+.side-panel{
+  background:#354052; 
+}
+

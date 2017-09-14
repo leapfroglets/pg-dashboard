@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import * as httpUtil from "../../httpUtil";
+import React, { Component } from 'react';
+import * as httpUtil from '../../httpUtil';
 
 class DatabaseItem extends Component {
   constructor() {
@@ -7,11 +7,14 @@ class DatabaseItem extends Component {
     this.state = {
       tabList: [],
       plusIsNext: true,
-      isLoaded: false
+      isLoaded: false,
+      activeDb:null,
+      activeTb:null
     };
+    this.refreshDataItem = this.refreshDataItem.bind(this);
+    this.resetSign=this.resetSign.bind(this);
   }
-
-  componentWillMount() {console.log('response')
+  refreshDataItem() {
     let data = {
       query:
         "select * FROM information_schema.tables WHERE table_schema='public'",
@@ -26,57 +29,104 @@ class DatabaseItem extends Component {
         });
       });
   }
+  
+  resetSign(){
+    this.setState({
+      plusIsNext:true
+    })
+  }
+  componentWillMount() {
+    let data = {
+      query:
+        "select * FROM information_schema.tables WHERE table_schema='public'",
+      dbname: this.props.dbname
+    };
+    httpUtil
+      .post(`http://localhost:4553/api/database/queries`, data)
+      .then(response => {
+        this.setState({
+          tabList: response.data.reply.rows,
+          isLoaded: true,
+          activeDb:this.props.activeDb,
+          activeTb:this.props.activeTb
+        });
+      });
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      activeDb:nextProps.activeDb,
+      activeTb:nextProps.activeTb
+    })
+  }
+
   showTables() {
-    let element = document.getElementById(this.props.dbname);
+    let element = document.getElementById(this.props.dbname+"_tblist");
     if (this.state.plusIsNext) {
-      element.style.display = "block";
+      element.style.display = 'block';
       this.setState({
         plusIsNext: false
       });
     } else {
-      element.style.display = "none";
+      element.style.display = 'none';
       this.setState({
         plusIsNext: true
       });
     }
   }
   redirect(path) {
-    // console.log("dbitem",this.props.history);
     this.props.history.push(path);
   }
+
   render() {
+    console.log(this.props.activeDb);
     if (this.state.isLoaded === true) {
-      let sign = this.state.plusIsNext ? "+" : "-";
+      let sign = this.state.plusIsNext ? '+' : '-';
       return (
-        <li key={this.props.dbname}>
-          <button
-            onClick={() => {
-              this.showTables();
-            }}
-          >
-            {sign}
-          </button>
-          <a
+        <li 
+          className={(this.state.activeDb===this.props.dbname) ?
+            "clearfix active-db":"clearfix not-active-db"
+          } 
+          key={this.props.dbname} 
+          id={this.props.dbname+"_id"}
+        >
+          <span className="button-wrapper">
+            <button
+              className="sign-button"
+              onClick={() => {
+                this.showTables();
+              }}
+            >
+              {sign}
+            </button>
+          </span>
+          <span 
+            className="dbname-wrapper point"
             onClick={() => {
               this.props.onClick(this.props.dbname, null);
-              this.redirect("/database/sqleditor");
+              this.props.setActiveDbTb(this.props.dbname, null);
+              this.redirect('/dashboard/databasestructure');
             }}
           >
-            <i className="fa fa-home" />
+            <i className="fa fa-database db-icon" />
             {this.props.dbname}
-          </a>
-          <ul id={this.props.dbname} className="nav child_menu">
+          </span>
+          <ul className="table-list" id={this.props.dbname+"_tblist"}>
             {this.state.tabList.map(table => {
               return (
-                <li key={table.table_name}>
-                  <a
-                    onClick={() => {
-                      this.props.onClick(this.props.dbname, table.table_name);
-                      this.redirect("/database/browse");
-                    }}
-                  >
+                <li
+                  className={(this.state.activeTb===table.table_name && this.state.activeDb===this.props.dbname) ?
+                    "point active-tb":"point not-active-tb"
+                  }
+                  key={table.table_name}
+                  id={table.table_name+"_id"}
+                  onClick={() => {
+                    this.props.onClick(this.props.dbname, table.table_name);
+                    this.props.setActiveDbTb(this.props.dbname, table.table_name);
+                    this.redirect("/dashboard/browse");
+                  }}
+                >
                     {table.table_name}
-                  </a>
                 </li>
               );
             })}
